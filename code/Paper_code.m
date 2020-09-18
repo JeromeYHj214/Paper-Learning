@@ -64,7 +64,7 @@ X7_e2 = mvnrnd(m_X7_e2, S_X7_e2,N)';
 X7_x3 = X7_x2 + X7_e2;
 
 m_X7_e3 = [0; 0];
-S_X7_e3 = 3*[1 0; 0 1];
+S_X7_e3 = 4*[1 0; 0 1];
 X7_e3 = mvnrnd(m_X7_e3, S_X7_e3,N)';
 X7_x4 = X7_x2 + X7_e3;
 
@@ -101,7 +101,7 @@ X8_e2 = mvnrnd(m_X8_e2, S_X8_e2,N)';
 X8_x3 = X8_x1 + X8_e2;
 
 m_X8_e3 = [0; 0];
-S_X8_e3 = 3*[1 0; 0 1];
+S_X8_e3 = 4*[1 0; 0 1];
 X8_e3 = mvnrnd(m_X8_e3, S_X8_e3,N)';
 X8_x4 = X8_x1 + X8_e3;
 

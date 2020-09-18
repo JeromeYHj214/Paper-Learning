@@ -1,4 +1,25 @@
-clc; clear; close;
-a = [1 2 3; 4 5 6; 7 8 9];
-a(:,:,2) = [10 11 12; 13 14 15; 16 17 18];
-b = [1 2 3; 4 5 6; 7 8 9];
+%----------------------
+%      cell操作
+%----------------------
+close; clc; clear;
+A = cell(2,10);
+for i=1:10
+ A{1,i}=rand(2,3);
+end
+
+%------------------
+%     图像操作
+%------------------
+% close; clc; clear;
+% x = imread('lena512.bmp');
+% y = imread('7.png');
+% subplot(2,2,1);
+% imshow(x)
+% subplot(2,2,2);
+% imshow(y)
+% y = rgb2gray(y);        %rgb转灰度
+% subplot(2,2,3);
+% imshow(y)
+% ybw = im2bw(x,0.5);    %转化为二值图像
+% subplot(2,2,4);
+% imshow(ybw)
