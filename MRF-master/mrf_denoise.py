@@ -22,7 +22,7 @@ def main():
 	imshow(noisy)
 
 	out=MRF_denoise(noisy)
-	
+
 	figure()		
 	gray()
 	title('Denoised Image')
