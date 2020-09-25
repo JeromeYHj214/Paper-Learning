@@ -152,3 +152,5 @@ for i = 1:N
     plot(X4{1,i}(1,:), X4{1,i}(2,:),'.');
     hold on;
 end
+
+save('Sim_data','X1','X2','X3','X4');
