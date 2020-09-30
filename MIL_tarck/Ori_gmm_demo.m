@@ -7,7 +7,6 @@
 
 clc;
 clear;
-close;
 
 
 % ------------------------------------------------------
@@ -15,8 +14,8 @@ close;
 % ------------------------------------------------------
 
 % N is the number of data
-N           = 40;
-gt_alpha    = [1/4 1/4 1/4 1/4];
+N           = 15;
+gt_alpha    = [1/3 1/3 1/3];
 
 % M is K, means the number of clusters
 M           = length(gt_alpha);
@@ -29,7 +28,7 @@ Z = [];
 % drawing from a multinomial distribution, parameterised by gt_alpha
 % R1 = mnrnd(N,gt_alpha);
 
-R = fix(N * gt_alpha);
+R = gt_alpha * N;
 
 
 for t = 1:M
@@ -39,11 +38,10 @@ end
 
 % Simulate data from ground truth N ( theta_{z_1},....,theta_{z_n}
 
-mu = [ -3 4; 0 0; 3 4; 2 2];
-Sigma(:,:,1) = [ 100 0; 0 100];
-Sigma(:,:,2) = [ 100 0; 0 100];
-Sigma(:,:,3) = [ 100 0; 0 100];
-Sigma(:,:,4) = [ 100 0; 0 100];
+mu = [ 800 600; 770 590; 840 620];
+Sigma(:,:,1) = [100 0;0 100];
+Sigma(:,:,2) = [100 0;0 100];
+Sigma(:,:,3) = [100 0;0 100];
 
 % data is X = {x_1, .... x_n}
 data = zeros([N 2]);
@@ -62,16 +60,15 @@ end
 % -------------------------------------------------
 
 % initialize, i.e., nominate Theta^(1)
-prev_mu = [ -3.2 3.8; 0.1 0.1; 4 4; 3 3];
-prev_Sigma(:,:,1) = [ 95 0; 0 95];
-prev_Sigma(:,:,2) = [ 95 0; 0 95];
-prev_Sigma(:,:,3) = [ 95 0; 0 95];
-prev_Sigma(:,:,4) = [ 95 0; 0 95];
+prev_mu = [ 780 590; 750 580; 850 600];
+prev_Sigma(:,:,1) = [100 0;0 100];
+prev_Sigma(:,:,2) = [100 0;0 100];
+prev_Sigma(:,:,3) = [100 0;0 100];
 prev_alpha = ones([M 1])/M;
 
 
 % the iteration number 
-MaxIter = 10;
+MaxIter = 20;
 response = zeros([N M]);
 
 next_mu = zeros(size(prev_mu));
@@ -94,7 +91,7 @@ for t = 1:MaxIter
         end
 
         response_sum = sum(response,2);
-        response = response ./ repmat(response_sum,[1 4]);
+        response = response ./ repmat(response_sum,[1 3]);
 
         % ---------------------------
         % update alpha^(i+1)
@@ -169,11 +166,11 @@ for t = 1:MaxIter
 %     contour(x1,x2,F);
 
     
-%     axis([min(data(:,1)) max(data(:,1)) min(data(:,2)) max(data(:,2))]); 
+    axis([min(data(:,1)) max(data(:,1)) min(data(:,2)) max(data(:,2))]); 
     hold off; 
     
     % this is to ask user to press a button
-    % waitforbuttonpress;
+%     waitforbuttonpress;
      
 end
 

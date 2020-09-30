@@ -3,7 +3,7 @@ range = [-1000 1000;-1000 1000];          %监测空间
 num_target = 3;                           %一共3个目标
 load('real_track.mat');                   %加载目标轨迹数据
 n = size(X1, 2);                          %步数
-num_sensor = 10                           %传感器个数
+num_sensor = 10;                           %传感器个数
 A = [1 1 0 0;0 1 0 0;0 0 1 1;0 0 0 1];
 B = [0.5 0;1 0;0 0.5;0 1];
 C = [1 0 0 0;0 0 1 0];
@@ -26,7 +26,7 @@ Zk=zeros(2,3*n);%认定为目标量测的集合
 Pe=zeros(4,4,3*n);%滤波误差的协方差阵
 Pp=zeros(4,4,3*n);%预测误差的协方差阵
 K=zeros(4,2,3*n);%滤波增益
-Z_prev = zeros(2,3*num_sensor,n);
+Z_prev = cell(1,n);
 Z = zeros(2,3, n);
 RMSE=zeros(1,3*n);
 error=zeros(1,3*n);
@@ -45,8 +45,13 @@ for k = 1:n-1
         Z2(:,i,k+1)=C*X2(:,k+1)+r_std*randn(2,1);
         Z3(:,i,k+1)=C*X3(:,k+1)+r_std*randn(2,1);
     end
-    Z_prev(:,:,k+1) = [Z1(:,:,k+1) Z2(:,:,k+1) Z3(:,:,k+1)];
-    Z(:,:,k+1) = one_em_gmm(Z_prev(:,:,k+1),num_target,R);
+    Z_prev{1,k+1} = [Z1(:,:,k+1) Z2(:,:,k+1) Z3(:,:,k+1)];
+    %% 杂波
+    Nc=40;        
+    Zc=repmat(range(:,1),[1,Nc])+(range(1,2)-range(1,1))*rand(2,Nc);
+    Z_prev{1,k+1} = [Z_prev{1,k+1} Zc];
+    %%
+    Z(:,:,k+1) = two_em_gmm(Z_prev{1,k+1},num_target,R);
     %% ---kalman滤波预测过程
     Xp(:,k+1)=A*Xe(:,k);%求k时刻目标1状态的提前一步预测
     Zp(:,k+1)=C*Xp(:,k+1);%求k时刻目标1量测的提前一步预测
@@ -104,6 +109,7 @@ for k = 1:n-1
     plot(Xe(1,2:k+1),Xe(3,2:k+1),'k-+','LineWidth',1.2);
     plot(Xe(1,52:k+51),Xe(3,52:k+51),'k-^','LineWidth',1.2);
     plot(Xe(1,102:k+101),Xe(3,102:k+101),'k-o','LineWidth',1.2);
+    plot(Zc(1,:),Zc(2,:),'k*','LineWidth',1.6);
     % axis(equal);axis(limit);
     xlabel('X/m','fontsize',10);ylabel('Y/m','fontsize',10);
     legend('目标1真实轨迹','目标2真实轨迹','目标3真实轨迹','目标1估计轨迹','目标2估计轨迹','目标3估计轨迹');

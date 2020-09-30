@@ -7,7 +7,7 @@ a = size(Z_prev);
 s = a(2);%总粒子数
 d = a(1);%特征维度
 b = s / num_target; %传感器数目
-L = [];%存储标签
+% L = [];%存储标签
 mu_prev = zeros(num_target,d);
 sigma_prev = zeros(d,d,num_target);
 
@@ -26,9 +26,9 @@ end
 alpha_prev = ones(1,num_target)/num_target;
 R = fix(b*alpha_prev);
 
-for i = 1:num_target
-    L = [L;ones(R(i), 1)*i];
-end
+% for i = 1:num_target
+%     L = [L;ones(R(i), 1)*i];
+% end
 
 MaxIter = 50;
 response = zeros([s num_target]);
