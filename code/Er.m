@@ -14,6 +14,7 @@ m_d2 = [0 0];   S_d2 = 0.1 * eye(2);
 m_d3 = [0 0];   S_d3 = 0.1 * eye(2);
 m_d4 = [0 0];   S_d4 = 0.1 * eye(2);
 X1 = cell(1,N);
+X1_ori = cell(1,N);
 x1 = mvnrnd(m_x1, S_x1, N);
 e2 = mvnrnd(m_e2, S_e2, N);
 e3 = mvnrnd(m_e3, S_e3, N);
@@ -38,6 +39,7 @@ for i = 1:N
     X1{i}(2,3) = 2;
     X1{i}(3,3) = 3;
     X1{i}(4,3) = 4;
+    X1_ori{i} = X1{i};
     %% Ëæ»úÉ¾³ýµã
     a = rand();
     b = randperm(4);
@@ -71,3 +73,17 @@ for i = 1:100
     plot(X1{i}(:,1),X1{i}(:,2),'+','color','b')
     hold on;
 end
+figure(2);
+for i = 1:100
+    plot(X1{i}(:,1),X1{i}(:,2),'+','color','b')
+    hold on;
+end
+
+count = 0;
+for i = 1:100
+    dis = (X1_ori{i}(4,1) - 16)^2 + (X1_ori{i}(4,2) - 4)^2;
+    if dis < 0.898
+        count = count + 1;
+    end
+end
+count
