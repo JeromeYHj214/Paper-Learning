@@ -5,10 +5,10 @@ clc;clear;close;
 feature_dimension = 2;
 N = 100;
 %% 四点链式结构
-m_x1 = [4 16];  S_x1 = 0.1 * eye(2);
-m_e2 = [4 -4];  S_e2 = 0.1 * eye(2);
-m_e3 = [4 -4];  S_e3 = 0.1 * eye(2);
-m_e4 = [4 -4];  S_e4 = 0.1 * eye(2);
+m_x1 = [4 16];  S_x1 = 0.01 * eye(2);
+m_e2 = [4 -4];  S_e2 = 0.01 * eye(2);
+m_e3 = [4 -4];  S_e3 = 0.01 * eye(2);
+m_e4 = [4 -4];  S_e4 = 0.01 * eye(2);
 m_d1 = [0 0];   S_d1 = 0.1 * eye(2);
 m_d2 = [0 0];   S_d2 = 0.1 * eye(2);
 m_d3 = [0 0];   S_d3 = 0.1 * eye(2);
@@ -79,11 +79,36 @@ for i = 1:100
     hold on;
 end
 
-count = 0;
+ct = 0.1;
+%yz = 2*ct*(log(1/pi)-log(ct)+log(2*30/3))   %强度二和强度一
+%yz = 2*ct*(log(1.5/pi)-log(ct)+log(3*(25.5/3)/2))   %强度三和强度二
+yz = 2*ct*(log(2/pi)-log(ct)+log(4*(71.4/25.5)))   %强度三和强度二
+count = zeros(1,4);
+for i = 1:100
+    dis = (X1_ori{i}(1,1) - 4)^2 + (X1_ori{i}(1,2) - 16)^2;
+    if dis < yz
+        count(1) = count(1) + 1;
+    end
+end
+
+for i = 1:100
+    dis = (X1_ori{i}(2,1) - 8)^2 + (X1_ori{i}(2,2) - 12)^2;
+    if dis < yz
+        count(2) = count(2) + 1;
+    end
+end
+
+for i = 1:100
+    dis = (X1_ori{i}(3,1) - 12)^2 + (X1_ori{i}(3,2) - 8)^2;
+    if dis < yz
+        count(3) = count(3) + 1;
+    end
+end
+
 for i = 1:100
     dis = (X1_ori{i}(4,1) - 16)^2 + (X1_ori{i}(4,2) - 4)^2;
-    if dis < 0.898
-        count = count + 1;
+    if dis < yz
+        count(4) = count(4) + 1;
     end
 end
 count
