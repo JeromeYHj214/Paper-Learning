@@ -78,37 +78,61 @@ for i = 1:100
     plot(X1{i}(:,1),X1{i}(:,2),'+','color','b')
     hold on;
 end
-
-ct = 0.1;
-%yz = 2*ct*(log(1/pi)-log(ct)+log(2*30/3))   %强度二和强度一
-%yz = 2*ct*(log(1.5/pi)-log(ct)+log(3*(25.5/3)/2))   %强度三和强度二
-yz = 2*ct*(log(2/pi)-log(ct)+log(4*(71.4/25.5)))   %强度三和强度二
-count = zeros(1,4);
+% %% 判断大小
+% ct = 0.1;
+% %yz = 2*ct*(log(1/pi)-log(ct)+log(2*30/3))   %强度二和强度一
+% %yz = 2*ct*(log(1.5/pi)-log(ct)+log(3*(25.5/3)/2))   %强度三和强度二
+% yz = 2*ct*(log(2/pi)-log(ct)+log(4*(71.4/25.5)))   %强度三和强度二
+% count = zeros(1,4);
+% for i = 1:100
+%     dis = (X1_ori{i}(1,1) - 4)^2 + (X1_ori{i}(1,2) - 16)^2;
+%     if dis < yz
+%         count(1) = count(1) + 1;
+%     end
+% end
+% 
+% for i = 1:100
+%     dis = (X1_ori{i}(2,1) - 8)^2 + (X1_ori{i}(2,2) - 12)^2;
+%     if dis < yz
+%         count(2) = count(2) + 1;
+%     end
+% end
+% 
+% for i = 1:100
+%     dis = (X1_ori{i}(3,1) - 12)^2 + (X1_ori{i}(3,2) - 8)^2;
+%     if dis < yz
+%         count(3) = count(3) + 1;
+%     end
+% end
+% 
+% for i = 1:100
+%     dis = (X1_ori{i}(4,1) - 16)^2 + (X1_ori{i}(4,2) - 4)^2;
+%     if dis < yz
+%         count(4) = count(4) + 1;
+%     end
+% end
+% count
+%% 似然值
+all_val_lh = zeros(1,100);
 for i = 1:100
-    dis = (X1_ori{i}(1,1) - 4)^2 + (X1_ori{i}(1,2) - 16)^2;
-    if dis < yz
-        count(1) = count(1) + 1;
+    l = size(X1{i},1);
+    if l==1
+        val = 0.05/4*factorial(l);
+        
+        for j = 1:l
+            if X1{i}(j,3) == 1
+                val = val * 
+        end
+        
+    elseif l==2
+        val = 0.1/6*factorial(l);
+    
+    elseif l==3
+        val = 0.15/4*factorial(l);
+        
+    else
+        val = 0.7*factorial(l);
+        
     end
+    all_val_lh(i) = val;
 end
-
-for i = 1:100
-    dis = (X1_ori{i}(2,1) - 8)^2 + (X1_ori{i}(2,2) - 12)^2;
-    if dis < yz
-        count(2) = count(2) + 1;
-    end
-end
-
-for i = 1:100
-    dis = (X1_ori{i}(3,1) - 12)^2 + (X1_ori{i}(3,2) - 8)^2;
-    if dis < yz
-        count(3) = count(3) + 1;
-    end
-end
-
-for i = 1:100
-    dis = (X1_ori{i}(4,1) - 16)^2 + (X1_ori{i}(4,2) - 4)^2;
-    if dis < yz
-        count(4) = count(4) + 1;
-    end
-end
-count
