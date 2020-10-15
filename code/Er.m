@@ -5,14 +5,14 @@ clc;clear;close;
 feature_dimension = 2;
 N = 100;
 %% 四点链式结构
-m_x1 = [4 16];  S_x1 = 0.1 * eye(2);
-m_e2 = [4 -4];  S_e2 = 0.1 * eye(2);
-m_e3 = [4 -4];  S_e3 = 0.1 * eye(2);
-m_e4 = [4 -4];  S_e4 = 0.1 * eye(2);
-m_n1 = [0 0];   S_n1 = 0.1 * eye(2);
-m_n2 = [0 0];   S_n2 = 0.1 * eye(2);
-m_n3 = [0 0];   S_n3 = 0.1 * eye(2);
-m_n4 = [0 0];   S_n4 = 0.1 * eye(2);
+m_x1 = [4 16];  S_x1 = 0.01 * eye(2);
+m_e2 = [4 -4];  S_e2 = 0.01 * eye(2);
+m_e3 = [4 -4];  S_e3 = 0.01 * eye(2);
+m_e4 = [4 -4];  S_e4 = 0.01 * eye(2);
+m_n1 = [0 0];   S_n1 = 0.01 * eye(2);
+m_n2 = [0 0];   S_n2 = 0.01 * eye(2);
+m_n3 = [0 0];   S_n3 = 0.01 * eye(2);
+m_n4 = [0 0];   S_n4 = 0.01 * eye(2);
 X1 = cell(1,N);
 X1_ori = cell(1,N);
 x1 = mvnrnd(m_x1, S_x1, N);
@@ -78,6 +78,7 @@ for i = 1:100
     plot(X1{i}(:,1),X1{i}(:,2),'+','color','b')
     hold on;
 end
+save('data2.mat','X1')
 % %% 判断大小
 % ct = 0.1;
 % %yz = 2*ct*(log(1/pi)-log(ct)+log(2*30/3))   %强度二和强度一
