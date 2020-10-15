@@ -1,8 +1,8 @@
 clc;clear;close;
-m_x1 = [4 16];  S_x1 = 0.1 * eye(2);
-m_e2 = [4 -4];  S_e2 = 0.1 * eye(2);
-m_e3 = [4 -4];  S_e3 = 0.1 * eye(2);
-m_e4 = [4 -4];  S_e4 = 0.1 * eye(2);
+m_x1 = [4 16];  S_x1 = 0.01 * eye(2);
+m_e2 = [4 -4];  S_e2 = 0.01 * eye(2);
+m_e3 = [4 -4];  S_e3 = 0.01 * eye(2);
+m_e4 = [4 -4];  S_e4 = 0.01 * eye(2);
 m_d1 = [0 0];   S_d1 = 0.1 * eye(2);
 m_d2 = [0 0];   S_d2 = 0.1 * eye(2);
 m_d3 = [0 0];   S_d3 = 0.1 * eye(2);
@@ -86,4 +86,4 @@ for i = 1:100
     end
     all_val_lh(i) = val
 end
-likelihood = reshape(all_val_lh,10,10)'
+reshape(all_val_lh
