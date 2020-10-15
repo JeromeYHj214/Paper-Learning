@@ -9,27 +9,27 @@ m_x1 = [4 16];  S_x1 = 0.1 * eye(2);
 m_e2 = [4 -4];  S_e2 = 0.1 * eye(2);
 m_e3 = [4 -4];  S_e3 = 0.1 * eye(2);
 m_e4 = [4 -4];  S_e4 = 0.1 * eye(2);
-m_d1 = [0 0];   S_d1 = 0.1 * eye(2);
-m_d2 = [0 0];   S_d2 = 0.1 * eye(2);
-m_d3 = [0 0];   S_d3 = 0.1 * eye(2);
-m_d4 = [0 0];   S_d4 = 0.1 * eye(2);
+m_n1 = [0 0];   S_n1 = 0.1 * eye(2);
+m_n2 = [0 0];   S_n2 = 0.1 * eye(2);
+m_n3 = [0 0];   S_n3 = 0.1 * eye(2);
+m_n4 = [0 0];   S_n4 = 0.1 * eye(2);
 X1 = cell(1,N);
 X1_ori = cell(1,N);
 x1 = mvnrnd(m_x1, S_x1, N);
 e2 = mvnrnd(m_e2, S_e2, N);
 e3 = mvnrnd(m_e3, S_e3, N);
 e4 = mvnrnd(m_e4, S_e4, N);
-d1 = mvnrnd(m_d1, S_d1, N);
-d2 = mvnrnd(m_d2, S_d2, N);
-d3 = mvnrnd(m_d3, S_d3, N);
-d4 = mvnrnd(m_d4, S_d4, N);
+n1 = mvnrnd(m_n1, S_n1, N);
+n2 = mvnrnd(m_n2, S_n2, N);
+n3 = mvnrnd(m_n3, S_n3, N);
+n4 = mvnrnd(m_n4, S_n4, N);
 x2 = x1 + e2;
 x3 = x2 + e3;
 x4 = x3 + e4;
-x1_n = x1 + d1;
-x2_n = x2 + d2;
-x3_n = x3 + d3;
-x4_n = x4 + d4;
+x1_n = x1 + n1;
+x2_n = x2 + n2;
+x3_n = x3 + n3;
+x4_n = x4 + n4;
 for i = 1:N
     X1{i} = x1_n(i,:);
     X1{i} = [X1{i};x2_n(i,:)];
@@ -113,69 +113,69 @@ end
 % end
 % count
 %% ËÆÈ»Öµ
-all_val_lh = zeros(1,100);
-for i = 1:100
-    l = size(X1{i},1);
-    if l==1
-        val = 0.05/4*factorial(l);
-        
-        for j = 1:l
-            if X1{i}(j,3) == 1
-                val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
-            elseif X1{i}(j,3) == 2
-                val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
-            elseif X1{i}(j,3) == 3
-                val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
-            else
-                val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
-            end
-        end
-        
-    elseif l==2
-        val = 0.1/6*factorial(l);
-        
-        for j = 1:l
-            if X1{i}(j,3) == 1
-                val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
-            elseif X1{i}(j,3) == 2
-                val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
-            elseif X1{i}(j,3) == 3
-                val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
-            else
-                val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
-            end
-        end
-    
-    elseif l==3
-        val = 0.15/4*factorial(l);
-        
-        for j = 1:l
-            if X1{i}(j,3) == 1
-                val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
-            elseif X1{i}(j,3) == 2
-                val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
-            elseif X1{i}(j,3) == 3
-                val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
-            else
-                val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
-            end
-        end
-        
-    else
-        val = 0.7*factorial(l);
-        
-       for j = 1:l
-            if X1{i}(j,3) == 1
-                val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
-            elseif X1{i}(j,3) == 2
-                val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
-            elseif X1{i}(j,3) == 3
-                val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
-            else
-                val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
-            end
-        end
-        
-    end
-    all_val_lh(i) = val;
-end
+% all_val_lh = zeros(1,100);
+% for i = 1:100
+%     l = size(X1{i},1);
+%     if l==1
+%         val = 0.05/4*factorial(l);
+%         
+%         for j = 1:l
+%             if X1{i}(j,3) == 1
+%                 val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
+%             elseif X1{i}(j,3) == 2
+%                 val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
+%             elseif X1{i}(j,3) == 3
+%                 val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
+%             else
+%                 val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
+%             end
+%         end
+%         
+%     elseif l==2
+%         val = 0.1/6*factorial(l);
+%         
+%         for j = 1:l
+%             if X1{i}(j,3) == 1
+%                 val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
+%             elseif X1{i}(j,3) == 2
+%                 val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
+%             elseif X1{i}(j,3) == 3
+%                 val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
+%             else
+%                 val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
+%             end
+%         end
+%     
+%     elseif l==3
+%         val = 0.15/4*factorial(l);
+%         
+%         for j = 1:l
+%             if X1{i}(j,3) == 1
+%                 val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
+%             elseif X1{i}(j,3) == 2
+%                 val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
+%             elseif X1{i}(j,3) == 3
+%                 val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
+%             else
+%                 val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
+%             end
+%         end
+%         
+%     else
+%         val = 0.7*factorial(l);
+%         
+%        for j = 1:l
+%             if X1{i}(j,3) == 1
+%                 val = val * 1/(2*pi*det(S_d1)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1)*S_d1^-1*(X1{i}(j,1:2)-m_x1)');
+%             elseif X1{i}(j,3) == 2
+%                 val = val * 1/(2*pi*det(S_d2)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2)*S_d2^-1*(X1{i}(j,1:2)-m_x1-m_e2)');
+%             elseif X1{i}(j,3) == 3
+%                 val = val * 1/(2*pi*det(S_d3)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)*S_d3^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3)');
+%             else
+%                 val = val * 1/(2*pi*det(S_d4)^0.5)*exp(-1/2*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)*S_d4^-1*(X1{i}(j,1:2)-m_x1-m_e2-m_e3-m_e4)');
+%             end
+%         end
+%         
+%     end
+%     all_val_lh(i) = val;
+% end
