@@ -1,11 +1,11 @@
 clc;clear;close all;
-L = 5;
+L = 50;
 PD = 0.98;
 range = [-1000 1000;-1000 1000];          %监测空间
 num_target = 3;                           %一共3个目标
 load('real_track.mat');                   %加载目标轨迹数据
 n = size(X1, 2);                          %步数
-num_sensor = 6;                           %传感器个数
+num_sensor = 7;                           %传感器个数
 A = [1 1 0 0;0 1 0 0;0 0 1 1;0 0 0 1];
 B = [0.5 0;1 0;0 0.5;0 1];
 C = [1 0 0 0;0 0 1 0];
@@ -61,7 +61,7 @@ for mont= 1:L
         Pp(:,:,k+101)=A*Pe(:,:,k+100)*A'+B*Q*B';%求k时刻目标3预测误差的协方差阵
         mu = [Zp(:,k+1) Zp(:,k+51) Zp(:,k+101)]
         %% 杂波
-        Nc=40;
+        Nc=240;
         Zc=repmat(range(:,1),[1,Nc])+(range(1,2)-range(1,1))*rand(2,Nc);
         idx=find(rand(1,num_target*num_sensor)<=PD);
         Z_prev{1,k+1} = Z_prev{1,k+1}(:,idx);
@@ -107,21 +107,21 @@ for mont= 1:L
         error(1,k+101)=sum((Xe([1 3],k+101)-X3([1 3],k+1)).^2);
         
         %% 绘制实时跟踪图
-        %     clf;  hold on;%Zk量测 ，Zp提前一步量测的预测，Xe目标状态估计，X1目标真实状态
-        %     % plot 真实轨迹
-        %     plot(X1(1,2:k+1),X1(3,2:k+1),'-r','LineWidth',1.6);
-        %     plot(X2(1,2:k+1),X2(3,2:k+1),'--g','LineWidth',1.6);
-        %     plot(X3(1,2:k+1),X3(3,2:k+1),':b','LineWidth',1.6);
-        %     %plot 估计轨迹
-        %     plot(Xe(1,2:k+1),Xe(3,2:k+1),'k-+','LineWidth',1.2);
-        %     plot(Xe(1,52:k+51),Xe(3,52:k+51),'k-^','LineWidth',1.2);
-        %     plot(Xe(1,102:k+101),Xe(3,102:k+101),'k-o','LineWidth',1.2);
-        %     plot(Zc(1,:),Zc(2,:),'k*','LineWidth',1.6);
-        %     % axis(equal);axis(limit);
-        %     xlabel('X/m','fontsize',10);ylabel('Y/m','fontsize',10);
-        %     legend('目标1真实轨迹','目标2真实轨迹','目标3真实轨迹','目标1估计轨迹','目标2估计轨迹','目标3估计轨迹');
-        %     hold off;
-        %     pause(0.01);
+%             clf;  hold on;%Zk量测 ，Zp提前一步量测的预测，Xe目标状态估计，X1目标真实状态
+%             % plot 真实轨迹
+%             plot(X1(1,2:k+1),X1(3,2:k+1),'-r','LineWidth',1.6);
+%             plot(X2(1,2:k+1),X2(3,2:k+1),'--g','LineWidth',1.6);
+%             plot(X3(1,2:k+1),X3(3,2:k+1),':b','LineWidth',1.6);
+%             %plot 估计轨迹
+%             plot(Xe(1,2:k+1),Xe(3,2:k+1),'k-+','LineWidth',1.2);
+%             plot(Xe(1,52:k+51),Xe(3,52:k+51),'k-^','LineWidth',1.2);
+%             plot(Xe(1,102:k+101),Xe(3,102:k+101),'k-o','LineWidth',1.2);
+%             plot(Zc(1,:),Zc(2,:),'k*','LineWidth',1.6);
+%             % axis(equal);axis(limit);
+%             xlabel('X/m','fontsize',10);ylabel('Y/m','fontsize',10);
+%             legend('目标1真实轨迹','目标2真实轨迹','目标3真实轨迹','目标1估计轨迹','目标2估计轨迹','目标3估计轨迹');
+%             hold off;
+%             pause(0.01);
     end
     %% 蒙特卡洛仿真误差累加
     RMSE=RMSE+error/L;
