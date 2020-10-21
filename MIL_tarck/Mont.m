@@ -1,9 +1,9 @@
 clc;clear ;close all;
 n=50;%仿真时间
-L=10;%蒙特卡洛仿真次数
+L=50;%蒙特卡洛仿真次数
 range=[-1000 1000;-1000 1000];
 lambda=40;
-PD=0.98;
+PD=1;
 num_target=3;%一共3个目标
 A=[1 1 0 0;0 1 0 0;0 0 1 1;0 0 0 1];
 B=[0.5 0;1 0;0 0.5;0 1];
@@ -117,21 +117,21 @@ for mont=1:L %蒙特卡洛仿真
         error(1,k+101)=sum((Xe([1 3],k+101)-X3([1 3],k+1)).^2);
         
         %% 绘制实时跟踪图
-        clf;  hold on;%Zk量测 ，Zp提前一步量测的预测，Xe目标状态估计，X1目标真实状态
-        % plot 真实轨迹
-        plot(X1(1,2:k+1),X1(3,2:k+1),'-r','LineWidth',1.6);
-        plot(X2(1,2:k+1),X2(3,2:k+1),'--g','LineWidth',1.6);
-        plot(X3(1,2:k+1),X3(3,2:k+1),':b','LineWidth',1.6);
-        %plot 估计轨迹
-        plot(Xe(1,2:k+1),Xe(3,2:k+1),'k-+','LineWidth',1.2);
-        plot(Xe(1,52:k+51),Xe(3,52:k+51),'k-^','LineWidth',1.2);
-        plot(Xe(1,102:k+101),Xe(3,102:k+101),'k-o','LineWidth',1.2);
-        plot(Z_real(1,:),Z_real(2,:),'k*','LineWidth',1.6);
-        % axis(equal);axis(limit);
-        xlabel('X/m','fontsize',10);ylabel('Y/m','fontsize',10);
-        legend('目标1真实轨迹','目标2真实轨迹','目标3真实轨迹','目标1估计轨迹','目标2估计轨迹','目标3估计轨迹');
-        hold off;
-        pause(0.01);
+%         clf;  hold on;%Zk量测 ，Zp提前一步量测的预测，Xe目标状态估计，X1目标真实状态
+%         % plot 真实轨迹
+%         plot(X1(1,2:k+1),X1(3,2:k+1),'-r','LineWidth',1.6);
+%         plot(X2(1,2:k+1),X2(3,2:k+1),'--g','LineWidth',1.6);
+%         plot(X3(1,2:k+1),X3(3,2:k+1),':b','LineWidth',1.6);
+%         %plot 估计轨迹
+%         plot(Xe(1,2:k+1),Xe(3,2:k+1),'k-+','LineWidth',1.2);
+%         plot(Xe(1,52:k+51),Xe(3,52:k+51),'k-^','LineWidth',1.2);
+%         plot(Xe(1,102:k+101),Xe(3,102:k+101),'k-o','LineWidth',1.2);
+%         plot(Z_real(1,:),Z_real(2,:),'k*','LineWidth',1.6);
+%         % axis(equal);axis(limit);
+%         xlabel('X/m','fontsize',10);ylabel('Y/m','fontsize',10);
+%         legend('目标1真实轨迹','目标2真实轨迹','目标3真实轨迹','目标1估计轨迹','目标2估计轨迹','目标3估计轨迹');
+%         hold off;
+%         pause(0.01);
     end
     %% 蒙特卡洛仿真误差累加
     RMSE=RMSE+error/L;
