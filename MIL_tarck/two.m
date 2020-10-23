@@ -1,11 +1,11 @@
 clc;clear;close all;
-L = 50;
+L = 10;
 PD = 0.98;
 range = [-1000 1000;-1000 1000];          %监测空间
 num_target = 3;                           %一共3个目标
 load('real_track.mat');                   %加载目标轨迹数据
 n = size(X1, 2);                          %步数
-num_sensor = 10;                           %传感器个数
+num_sensor = 20;                           %传感器个数
 A = [1 1 0 0;0 1 0 0;0 0 1 1;0 0 0 1];
 B = [0.5 0;1 0;0 0.5;0 1];
 C = [1 0 0 0;0 0 1 0];
@@ -33,15 +33,17 @@ Z = zeros(2,3, n);
 RMSE=zeros(1,3*n);
 error=zeros(1,3*n);
 %----------初始化3个目标的状态-------
-Xe(:,1)=[-900;30;900;-30];
-Xe(:,51)=[-900;25;-800;30];
-Xe(:,101)=[-900;20;0;20];
+Xe(:,1)=[-700;15;650;-50];
+Xe(:,51)=[-700;15;-600;20];
+Xe(:,101)=[-700;10;100;10];
 Pe(:,:,1)=[100 0 0 0; 0 25 0 0;0 0 100 0;0 0 0 25];
 Pe(:,:,51)=[100 0 0 0; 0 25 0 0;0 0 100 0;0 0 0 25];
 Pe(:,:,101)=[100 0 0 0; 0 25 0 0;0 0 100 0;0 0 0 25];
 %------------Kalman滤波跟踪过程------
 for mont= 1:L
+    mont
     for k = 1:n-1
+        k
         for i = 1:num_sensor
             %--三个目标的真实航迹和量测------已经保存真实航迹数据数据
             Z1(:,i,k+1)=C*X1(:,k+1)+r_std*randn(2,1);
@@ -49,6 +51,7 @@ for mont= 1:L
             Z3(:,i,k+1)=C*X3(:,k+1)+r_std*randn(2,1);
         end
         Z_prev{1,k+1} = [Z1(:,:,k+1) Z2(:,:,k+1) Z3(:,:,k+1)];
+        mu = [Z1(:,1,k+1) Z2(:,1,k+1) Z3(:,1,k+1)];
         %% ---kalman滤波预测过程
         Xp(:,k+1)=A*Xe(:,k);%求k时刻目标1状态的提前一步预测
         Zp(:,k+1)=C*Xp(:,k+1);%求k时刻目标1量测的提前一步预测
@@ -59,9 +62,9 @@ for mont= 1:L
         Xp(:,k+101)=A*Xe(:,k+100);%求k时刻目标3状态的提前一步预测
         Zp(:,k+101)=C*Xp(:,k+101);%求k时刻目标3量测的提前一步预测
         Pp(:,:,k+101)=A*Pe(:,:,k+100)*A'+B*Q*B';%求k时刻目标3预测误差的协方差阵
-        mu = [Zp(:,k+1) Zp(:,k+51) Zp(:,k+101)]
+
         %% 杂波
-        Nc=240;
+        Nc=40;
         Zc=repmat(range(:,1),[1,Nc])+(range(1,2)-range(1,1))*rand(2,Nc);
         idx=find(rand(1,num_target*num_sensor)<=PD);
         Z_prev{1,k+1} = Z_prev{1,k+1}(:,idx);
@@ -107,21 +110,21 @@ for mont= 1:L
         error(1,k+101)=sum((Xe([1 3],k+101)-X3([1 3],k+1)).^2);
         
         %% 绘制实时跟踪图
-%             clf;  hold on;%Zk量测 ，Zp提前一步量测的预测，Xe目标状态估计，X1目标真实状态
-%             % plot 真实轨迹
-%             plot(X1(1,2:k+1),X1(3,2:k+1),'-r','LineWidth',1.6);
-%             plot(X2(1,2:k+1),X2(3,2:k+1),'--g','LineWidth',1.6);
-%             plot(X3(1,2:k+1),X3(3,2:k+1),':b','LineWidth',1.6);
-%             %plot 估计轨迹
-%             plot(Xe(1,2:k+1),Xe(3,2:k+1),'k-+','LineWidth',1.2);
-%             plot(Xe(1,52:k+51),Xe(3,52:k+51),'k-^','LineWidth',1.2);
-%             plot(Xe(1,102:k+101),Xe(3,102:k+101),'k-o','LineWidth',1.2);
-%             plot(Zc(1,:),Zc(2,:),'k*','LineWidth',1.6);
-%             % axis(equal);axis(limit);
-%             xlabel('X/m','fontsize',10);ylabel('Y/m','fontsize',10);
-%             legend('目标1真实轨迹','目标2真实轨迹','目标3真实轨迹','目标1估计轨迹','目标2估计轨迹','目标3估计轨迹');
-%             hold off;
-%             pause(0.01);
+            clf;  hold on;%Zk量测 ，Zp提前一步量测的预测，Xe目标状态估计，X1目标真实状态
+            % plot 真实轨迹
+            plot(X1(1,2:k+1),X1(3,2:k+1),'-r','LineWidth',1.6);
+            plot(X2(1,2:k+1),X2(3,2:k+1),'--g','LineWidth',1.6);
+            plot(X3(1,2:k+1),X3(3,2:k+1),':b','LineWidth',1.6);
+            %plot 估计轨迹
+            plot(Xe(1,2:k+1),Xe(3,2:k+1),'k-+','LineWidth',1.2);
+            plot(Xe(1,52:k+51),Xe(3,52:k+51),'k-^','LineWidth',1.2);
+            plot(Xe(1,102:k+101),Xe(3,102:k+101),'k-o','LineWidth',1.2);
+            plot(Zc(1,:),Zc(2,:),'k*','LineWidth',1.6);
+            % axis(equal);axis(limit);
+            xlabel('X/m','fontsize',10);ylabel('Y/m','fontsize',10);
+            legend('目标1真实轨迹','目标2真实轨迹','目标3真实轨迹','目标1估计轨迹','目标2估计轨迹','目标3估计轨迹');
+            hold off;
+            pause(0.01);
     end
     %% 蒙特卡洛仿真误差累加
     RMSE=RMSE+error/L;
@@ -130,9 +133,9 @@ end
 RMSE=sqrt(RMSE);
 %% 分别绘制RMSE
 figure;hold on;
-plot(RMSE(1:n),'-r','LineWidth',1.6);
-plot(RMSE(n+1:2*n),'--g','LineWidth',1.6);
-plot(RMSE(2*n+1:3*n),':b','LineWidth',1.6);
+plot(RMSE(2:n),'-r','LineWidth',1.6);
+plot(RMSE(n+2:2*n),'--g','LineWidth',1.6);
+plot(RMSE(2*n+2:3*n),':b','LineWidth',1.6);
 xlabel('时间/(s)','fontsize',10);ylabel('RMSE/(m)','fontsize',10);
 legend('目标1','目标2','目标3');
 hold off;
