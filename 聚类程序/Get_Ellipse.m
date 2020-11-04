@@ -1,0 +1,24 @@
+function [ex1,ey1,ex2,ey2] = Get_Ellipse(miu,segma)
+[A,B] = eig(segma);
+a = 2*sqrt(B(1,1));
+b = 2*sqrt(B(2,2));
+xmin = -a;
+xmax = a;
+x = xmin:0.01:xmax; 
+y1 = b*sqrt((1-x.*x/(a*a)));
+y2 = -b*sqrt((1-x.*x/(a*a)));
+pxy1 = A*[x;y1];   
+pxy2 = A*[x;y2];   
+xy1 = [pxy1(1,:)+miu(1);pxy1(2,:)+miu(2)];   
+xy2 = [pxy2(1,:)+miu(1);pxy2(2,:)+miu(2)];    
+ex1 = xy1(1,:);  
+ey1= xy1(2,:);
+ex2 = xy2(1,:);
+ey2= xy2(2,:);
+
+function probV = norm_pdf(Error_xy,segma)
+Det_xy = sqrt(abs(det(2*pi*segma)));   i
+i_segma = inv(segma);                        
+Es = Error_xy'*i_segma.*Error_xy';
+probV = exp(-0.5*sum(Es'))/Det_xy;  
+probV = probV;          
