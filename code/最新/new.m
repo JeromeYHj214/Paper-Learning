@@ -5,12 +5,12 @@ clc;clear;close;
 feature_dimension = 2;
 N = 100;
 %% 三点链式结构
-m_x1 = [4 16];  S_x1 = 0.01 * eye(2);
-m_e2 = [4 -4];  S_e2 = 0.01 * eye(2);
-m_e3 = [4 -4];  S_e3 = 0.01 * eye(2);
-m_n1 = [0 0];   S_n1 = 0.01 * eye(2);
-m_n2 = [0 0];   S_n2 = 0.01 * eye(2);
-m_n3 = [0 0];   S_n3 = 0.01 * eye(2);
+m_x1 = [4 16];  S_x1 = 0.1 * eye(2);
+m_e2 = [4 -4];  S_e2 = 0.1 * eye(2);
+m_e3 = [4 -4];  S_e3 = 0.1 * eye(2);
+m_n1 = [0 0];   S_n1 = 0.1 * eye(2);
+m_n2 = [0 0];   S_n2 = 0.1 * eye(2);
+m_n3 = [0 0];   S_n3 = 0.1 * eye(2);
 
 X1 = cell(1,N);
 X1_ori = cell(1,N);
@@ -33,9 +33,11 @@ x2_n = x2 + n2;
 x3_n = x3 + n3;
 
 for i = 1:N
+   %X1表示观测位置状态
     X1{i} = x1_n(i,:);
     X1{i} = [X1{i};x2_n(i,:)];
     X1{i} = [X1{i};x3_n(i,:)];
+    %X2表示真实观测状态
     X2{i} = x1(i,:);
     X2{i} = [X2{i};x2(i,:)];
     X2{i} = [X2{i};x3(i,:)];
@@ -47,7 +49,9 @@ for i = 1:N
     X2{i}(2,3) = 2;
     X2{i}(3,3) = 3;
    
+    %X1_ori表示数据未缺失真实观测位置状态
     X1_ori{i} = X1{i};
+    %X2_ori表示数据未缺失的真实状态
     X2_ori{i} = X2{i};
     %% 随机删除点
     a = rand();
@@ -89,4 +93,4 @@ for i = 1:100
     plot(X2{i}(:,1),X2{i}(:,2),'x','color','r');
     hold on;
 end
-save('data_of_3.mat','X1','X1_ori','X2','X2_ori');
+save('data_of_4.mat','X1','X1_ori','X2','X2_ori');
