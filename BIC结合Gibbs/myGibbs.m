@@ -33,7 +33,8 @@ height = pos(4);
 mov = zeros(height, width, 1, length(K), 'uint8');
 
 logBICv = zeros(size(I,2),K);
-for i=1:size(I,2)
+fo
+r i=1:size(I,2)
     cnum = I(i);
     for m=1:cnum
       miu(:,m) = [unifrnd(x_min,x_max,1);unifrnd(y_min,y_max,1)];  
