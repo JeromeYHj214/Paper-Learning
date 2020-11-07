@@ -71,7 +71,7 @@ for i=1:size(I,2)
 
 end
 
-save FMM_parameter.mat wi miu cov_Pt AICv BICv I -append;
+save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
 %load FMM_parameter.mat;
 figure; 
 plot(I,AICv,'-*k',I,BICv,'-sk');

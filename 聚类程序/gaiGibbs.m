@@ -66,7 +66,7 @@ end
 
 
 
-save FMM_parameter.mat wi miu cov_Pt AICv BICv I -append;%保存-将工作区变量保存到文件.此matlab函数将当前工作区中的所有变量保存在matlab中。
+save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;%保存-将工作区变量保存到文件.此matlab函数将当前工作区中的所有变量保存在matlab中。
                                                                                                %格式化的二进制文件（mat文件）称为文件名。
 %load FMM_parameter.mat;
 figure; 
