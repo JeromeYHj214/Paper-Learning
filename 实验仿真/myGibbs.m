@@ -20,7 +20,7 @@ y_max = max(Pt(2,:));
 
 %100: The max num of the iteration
 K = 100;          %iterative times
-I = 2:7;
+I = 2:8;
 logBICv = zeros(size(I,2),K);
 for i=1:size(I,2)
     cnum = I(i);
