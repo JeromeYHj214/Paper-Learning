@@ -54,19 +54,36 @@ X3_alpha = canshu{1,2};
 X3_mu = canshu{2,2};
 X3_sigma = canshu{3,2};
 
+%% 绘制测试集的基数分布
+
+
+%% 绘制测试集的特征分布
+figure(1);
+set(gcf,'color','white');
+for i = 1:40
+    plot(X1_test{2,i}(1,:),X1_test{2,i}(2,:),'.r');
+    hold on
+    plot(X2_test{2,i}(1,:),X2_test{2,i}(2,:),'.b');
+    hold on
+    plot(X3_test{2,i}(1,:),X3_test{2,i}(2,:),'.g');
+    hold on
+end
+xlabel('X');
+ylabel('Y');
+legend('Class 1','Class 2','Class 3');
+title('Feature Distribution');
+saveas(gcf, 'ex1_featureDis', 'png');
+
 %% 开始测试
 X_test = [X1_test X2_test X3_test];
 len = size(X_test,2);
+
 for i = 1:len
     ge = X_test{1,i};
-    %% 点模式概率
-%     X_test{5,i} = ge*log(X1_pos)-X1_pos;
-%     X_test{6,i} = ge*log(X2_pos)-X2_pos;
-%     X_test{7,i} = ge*log(X3_pos)-X3_pos;
     %% 非点模式
-        X_test{5,i} = 0;
-        X_test{6,i} = 0;
-        X_test{7,i} = 0;
+    X_test{5,i} = 0;
+    X_test{6,i} = 0;
+    X_test{7,i} = 0;
     for j = 1:ge
         X_test{5,i} = X_test{5,i} + log( X1_alpha(1)/(2*pi*det(X1_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))'*inv(X1_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))) +...
             X1_alpha(2)/(2*pi*det(X1_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))'*inv(X1_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))) + ...
@@ -88,10 +105,49 @@ for i = 1:len
         X_test{4,i} = 3;
     end
 end
-count = 0;
+count_nc = 0;
 for i = 1:len
     if X_test{3,i}==X_test{4,i}
-        count = count + 1;
+        count_nc = count_nc + 1;
     end
 end
-rate = count/len;
+rate_nc = count_nc/len;
+
+%% 点模式概率
+for i = 1:len
+    ge = X_test{1,i};
+    
+    X_test{5,i} = ge*log(X1_pos)-X1_pos;
+    X_test{6,i} = ge*log(X2_pos)-X2_pos;
+    X_test{7,i} = ge*log(X3_pos)-X3_pos;
+    for j = 1:ge
+        X_test{5,i} = X_test{5,i} + log( X1_alpha(1)/(2*pi*det(X1_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))'*inv(X1_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))) +...
+            X1_alpha(2)/(2*pi*det(X1_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))'*inv(X1_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))) + ...
+            X1_alpha(3)/(2*pi*det(X1_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))'*inv(X1_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))) );
+        
+        X_test{6,i} = X_test{6,i} + log( X2_alpha(1)/(2*pi*det(X2_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))'*inv(X2_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))) +...
+            X2_alpha(2)/(2*pi*det(X2_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))'*inv(X2_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))) + ...
+            X2_alpha(3)/(2*pi*det(X2_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))'*inv(X2_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))) );
+        
+        X_test{7,i} = X_test{7,i} + log( X3_alpha(1)/(2*pi*det(X3_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))'*inv(X3_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))) +...
+            X3_alpha(2)/(2*pi*det(X3_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))'*inv(X3_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))) + ...
+            X3_alpha(3)/(2*pi*det(X3_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,3))'*inv(X3_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X3_mu(1:2,3))) );
+    end
+    if X_test{5,i} > X_test{6,i} && X_test{5,i} > X_test{7,i}
+        X_test{4,i} = 1;
+    elseif X_test{6,i} > X_test{5,i} && X_test{6,i} > X_test{7,i}
+        X_test{4,i} = 2;
+    else
+        X_test{4,i} = 3;
+    end
+end
+count_wc = 0;
+for i = 1:len
+    if X_test{3,i}==X_test{4,i}
+        count_wc = count_wc + 1;
+    end
+end
+rate_wc = count_wc/len;
+%% 绘制结果
+data = [count_nc count_wc];
+b=bar(y);

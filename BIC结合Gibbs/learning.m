@@ -98,6 +98,7 @@ for i=1:size(I,2)
 end
 %%
 save('ex1_X3_para.mat','canshu');
+%%
 imwrite(mov, map, 'four_component.gif', 'DelayTime', 0, 'LoopCount', inf);
 %save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
 %load FMM_parameter.mat;
