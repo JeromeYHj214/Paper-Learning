@@ -69,13 +69,13 @@ var_n1 = var_z1 - var_x1;
 var_n2 = var_z2 - var_x2;
 var_n3 = var_z3 - var_x3;
  %% ²âÊÔ
-var_n1 = 0.01 * eye(2);
-var_n2 = 0.01 * eye(2);
-var_n3 = 0.01 * eye(2);
-var_x1 = 0.01 * eye(2);
-var_x2 = 0.02 * eye(2);
-var_x3 = 0.03 * eye(2);
-mean_X = [4 16 ; 8 12;12 8];
+% var_n1 = 0.01 * eye(2);
+% var_n2 = 0.01 * eye(2);
+% var_n3 = 0.01 * eye(2);
+% var_x1 = 0.01 * eye(2);
+% var_x2 = 0.02 * eye(2);
+% var_x3 = 0.03 * eye(2);
+% mean_X = [4 16 ; 8 12;12 8];
 %%
 var_x1x2 = (var_x1 * var_x2)^0.5;
 var_x2x3 = (var_x2 * var_x3)^0.5;
@@ -114,8 +114,18 @@ for i = 1:num
     errd(1,i) = (X2_ori{i}(1,1)-X1_ori{i}(1,1))^2 + (X2_ori{i}(1,2)-X1_ori{i}(1,2))^2;
     errd(2,i) = (X2_ori{i}(2,1)-X1_ori{i}(2,1))^2 + (X2_ori{i}(2,2)-X1_ori{i}(2,2))^2;
     errd(3,i) = (X2_ori{i}(3,1)-X1_ori{i}(3,1))^2 + (X2_ori{i}(3,2)-X1_ori{i}(3,2))^2; 
+    
+    erru(1,i) = (guji{i}(1,1)-mean_X(1,1))^2 + (guji{i}(1,2)-mean_X(1,2))^2;
+    erru(2,i) = (guji{i}(2,1)-mean_X(2,1))^2 + (guji{i}(2,2)-mean_X(2,2))^2;
+    erru(3,i) = (guji{i}(3,1)-mean_X(3,1))^2 + (guji{i}(3,2)-mean_X(3,2))^2;
+    
+    errud(1,i) = (mean_X(1,1)-X1_ori{i}(1,1))^2 + (mean_X(1,2)-X1_ori{i}(1,2))^2;
+    errud(2,i) = (mean_X(2,1)-X1_ori{i}(2,1))^2 + (mean_X(2,2)-X1_ori{i}(2,2))^2;
+    errud(3,i) = (mean_X(3,1)-X1_ori{i}(3,1))^2 + (mean_X(3,2)-X1_ori{i}(3,2))^2;
 end
 cha = errd -err;
+
+chau = errud -erru;
 
 index = cha > 0
 count = 0;
@@ -124,6 +134,17 @@ for i = 1:3
     for j = 1:num
         if index(i,j) == 1
             count = count + 1;
+        end
+    end
+end
+
+index1 = chau > 0;
+count1 = 0;
+
+for i = 1:3
+    for j = 1:num
+        if index1(i,j) == 1
+            count1 = count1 + 1;
         end
     end
 end

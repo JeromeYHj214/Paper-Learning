@@ -6,7 +6,13 @@
 function Gibbs2()
 clear all;
 t_start = cputime;  %计算时间
-load mydata.mat;      %data file
+%%
+%注释部分
+% load mydata.mat;      %data file
+%后期部分
+load X1.mat;
+Pt = pt1_train;
+%%
 Num = size(Pt,2);     %Pt: observation point: two-dimention
 x_dim = size(Pt,1);
 x_min = min(Pt(1,:));
@@ -20,7 +26,7 @@ y_max = max(Pt(2,:));
 
 %100: The max num of the iteration
 K = 100;          %iterative times
-I = 2:6;
+I = 2:5;
 logBICv = zeros(size(I,2),K);
 for i=1:size(I,2)
     cnum = I(i);
@@ -71,7 +77,7 @@ for i=1:size(I,2)
 
 end
 
-save FMM_parameter.mat wi miu cov_Pt AICv BICv I -append;
+save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
 %load FMM_parameter.mat;
 figure; 
 plot(I,AICv,'-*k',I,BICv,'-sk');
