@@ -9,8 +9,8 @@ t_start = cputime;  %计算时间
 %注释部分
 % load mydata.mat;      %data file
 %后期部分
-load ex1_X3.mat;
-Pt = pt1_train;
+load ex2_X1.mat;
+Pt = pt2_train;
 %%
 Num = size(Pt,2);     %Pt: observation point: two-dimention
 x_dim = size(Pt,1);
@@ -25,7 +25,7 @@ y_max = max(Pt(2,:));
 
 %100: The max num of the iteration
 K = 100;          %iterative times
-I = 2:4;
+I = 2:5;
 %%  后期添加
 pos = get(gcf, 'Position');
 width = pos(3);
@@ -97,7 +97,7 @@ for i=1:size(I,2)
     
 end
 %%
-save('ex1_X3_para.mat','canshu');
+save('ex2_X1_para.mat','canshu');
 %%
 imwrite(mov, map, 'four_component.gif', 'DelayTime', 0, 'LoopCount', inf);
 %save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
