@@ -25,7 +25,7 @@ y_max = max(Pt(2,:));
 
 %100: The max num of the iteration
 K = 100;          %iterative times
-I = 2:5;
+I = 2:6;
 %%  后期添加
 pos = get(gcf, 'Position');
 width = pos(3);
@@ -97,15 +97,17 @@ for i=1:size(I,2)
     
 end
 %%
-save('ex2_X1_para.mat','canshu');
+%save('ex2_X1_para.mat','canshu');
 %%
 imwrite(mov, map, 'four_component.gif', 'DelayTime', 0, 'LoopCount', inf);
 %save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
 %load FMM_parameter.mat;
 figure;
 set(gcf,'color','white');
-plot(I,AICv,'-*k',I,BICv,'-sk');
-legend('AIC优化准则','BIC优化准则');
+%plot(I,AICv,'-*k',I,BICv,'-sk');
+%legend('AIC优化准则','BIC优化准则');
+plot(I,BICv,'-sk');
+legend('BIC优化准则');
 xlabel('分布元个数');
 ylabel('信息优化准则');
 
