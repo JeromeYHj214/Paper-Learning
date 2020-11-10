@@ -1,7 +1,7 @@
 clear all;close all;clc;
 %% 获取X1的测试集与泊松强度
-load ex1_X1.mat
-load ex1_X1_para
+load ex3_X1.mat
+load ex3_X1_para
 X1_test = cell(7,40);
 for i = 1:40
     X1_test{1,i} = X1{1,100+i};
@@ -18,8 +18,8 @@ X1_mu = canshu{2,2};
 X1_sigma = canshu{3,2};
 
 %% 获取X2的测试集与泊松强度
-load ex1_X2.mat
-load ex1_X2_para
+load ex3_X2.mat
+load ex3_X2_para
 X2_test = cell(7,40);
 for i = 1:40
     X2_test{1,i} = X1{1,100+i};
@@ -31,13 +31,16 @@ for i = 1:100
     X2_pos = X2_pos +  X1{1,i};
 end
 X2_pos = X2_pos / 100;
-X2_alpha = canshu{1,2};
-X2_mu = canshu{2,2};
-X2_sigma = canshu{3,2};
+% X2_alpha = canshu{1,2};
+% X2_mu = canshu{2,2};
+% X2_sigma = canshu{3,2};
+X2_alpha = canshu{1,1};
+X2_mu = canshu{2,1};
+X2_sigma = canshu{3,1};
 
 %% 获取X3的测试集与泊松强度
-load ex1_X3.mat
-load ex1_X2_para
+load ex3_X3.mat
+load ex3_X2_para
 X3_test = cell(7,40);
 for i = 1:40
     X3_test{1,i} = X1{1,100+i};
@@ -67,12 +70,12 @@ X1_test_cad_ratio = zeros(1,max_val);
 X2_test_cad_ratio = zeros(1,max_val);
 X3_test_cad_ratio = zeros(1,max_val);
 for i = 1:max_val
-   a = length(find(X1_test_cad == i));
-   b = length(find(X2_test_cad == i));
-   c = length(find(X3_test_cad == i));
-   X1_test_cad_ratio(i) = a / 40;
-   X2_test_cad_ratio(i) = b / 40;
-   X3_test_cad_ratio(i) = c / 40;
+    a = length(find(X1_test_cad == i));
+    b = length(find(X2_test_cad == i));
+    c = length(find(X3_test_cad == i));
+    X1_test_cad_ratio(i) = a / 40;
+    X2_test_cad_ratio(i) = b / 40;
+    X3_test_cad_ratio(i) = c / 40;
 end
 bar_set=zeros(max_val,3);
 for i = 1:max_val
@@ -91,7 +94,7 @@ legend('Class 1','Class 2','Class 3');
 ylabel('Frequency');
 xlabel('Cardinality n');
 title('Cardinality histogram');
-saveas(gcf, 'ex1_card_Dis', 'png');
+%saveas(gcf, 'ex3_card_Dis', 'png');
 %% 绘制测试集的特征分布
 figure;
 set(gcf,'color','white');
@@ -107,7 +110,7 @@ xlabel('X');
 ylabel('Y');
 legend('Class 1','Class 2','Class 3');
 title('Feature Distribution');
-saveas(gcf, 'ex1_featureDis', 'png');
+%saveas(gcf, 'ex3_featureDis', 'png');
 
 %% 开始测试
 X_test = [X1_test X2_test X3_test];
@@ -124,9 +127,11 @@ for i = 1:len
             X1_alpha(2)/(2*pi*det(X1_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))'*inv(X1_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))) + ...
             X1_alpha(3)/(2*pi*det(X1_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))'*inv(X1_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))) );
         
+        %         X_test{6,i} = X_test{6,i} + log( X2_alpha(1)/(2*pi*det(X2_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))'*inv(X2_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))) +...
+        %             X2_alpha(2)/(2*pi*det(X2_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))'*inv(X2_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))) + ...
+        %             X2_alpha(3)/(2*pi*det(X2_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))'*inv(X2_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))) );
         X_test{6,i} = X_test{6,i} + log( X2_alpha(1)/(2*pi*det(X2_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))'*inv(X2_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))) +...
-            X2_alpha(2)/(2*pi*det(X2_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))'*inv(X2_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))) + ...
-            X2_alpha(3)/(2*pi*det(X2_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))'*inv(X2_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))) );
+            X2_alpha(2)/(2*pi*det(X2_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))'*inv(X2_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))));
         
         X_test{7,i} = X_test{7,i} + log( X3_alpha(1)/(2*pi*det(X3_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))'*inv(X3_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))) +...
             X3_alpha(2)/(2*pi*det(X3_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))'*inv(X3_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))) + ...
@@ -159,9 +164,11 @@ for i = 1:len
             X1_alpha(2)/(2*pi*det(X1_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))'*inv(X1_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))) + ...
             X1_alpha(3)/(2*pi*det(X1_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))'*inv(X1_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))) );
         
+        %         X_test{6,i} = X_test{6,i} + log( X2_alpha(1)/(2*pi*det(X2_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))'*inv(X2_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))) +...
+        %             X2_alpha(2)/(2*pi*det(X2_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))'*inv(X2_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))) + ...
+        %             X2_alpha(3)/(2*pi*det(X2_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))'*inv(X2_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))) );
         X_test{6,i} = X_test{6,i} + log( X2_alpha(1)/(2*pi*det(X2_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))'*inv(X2_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))) +...
-            X2_alpha(2)/(2*pi*det(X2_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))'*inv(X2_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))) + ...
-            X2_alpha(3)/(2*pi*det(X2_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))'*inv(X2_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X2_mu(1:2,3))) );
+            X2_alpha(2)/(2*pi*det(X2_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))'*inv(X2_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X2_mu(1:2,2))));
         
         X_test{7,i} = X_test{7,i} + log( X3_alpha(1)/(2*pi*det(X3_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))'*inv(X3_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))) +...
             X3_alpha(2)/(2*pi*det(X3_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))'*inv(X3_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))) + ...
@@ -191,4 +198,4 @@ set(gca,'XTickLabel',{'NB Model','Poisson Model'})
 set(gca,'YLim',[0 1.0])
 ylabel('Accuracy');
 title('Classification Performance');
-saveas(gcf, 'ex1_ClaPer', 'png');
+%saveas(gcf, 'ex3_ClaPer', 'png');

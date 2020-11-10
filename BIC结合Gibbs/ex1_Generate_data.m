@@ -4,12 +4,12 @@ close all;clc;clear;
 num_X1 = 140;
 
 %lambda 为点模式的基数分布参数，符合泊松分布
-lambda_X1 = 39;
+lambda_X1 = 21;
 
 %alpha mu sigma为点模式的特征分布参数，符合高斯分布
-mu_X1_x1 = [5 5];
-mu_X1_x2 = [5 15];
-mu_X1_x3 = [9 9];
+mu_X1_x1 = [9 5];
+mu_X1_x2 = [9 15];
+mu_X1_x3 = [5 10];
 mu_X1 = [mu_X1_x1;mu_X1_x2;mu_X1_x3];
 sigma_X1_x1 = [1 0; 0 1];
 sigma_X1_x2 = [2 -0.5; -0.5 2];
@@ -60,4 +60,4 @@ figure(1);
 plot(pt1_train(1,:), pt1_train(2,:), '.');
 %axis([min(pt1_train(1,:)) max(pt1_train(1,:)) min(pt1_train(2,:)) max(pt1_train(2,:))]);
 hold on;
-save('ex1_X3.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt1_train','pt1_test');
+save('ex3_X1.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt1_train','pt1_test');

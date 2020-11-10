@@ -1,3 +1,6 @@
+%X1_ori表示数据未缺失的观测状态
+%X2_ori表示数据未缺失的真实状态
+
 clear;clc;
 load data_of_3.mat
 % figure(1);
@@ -79,7 +82,14 @@ var_n3 = var_z3 - var_x3;
 %%
 var_x1x2 = (var_x1 * var_x2)^0.5;
 var_x2x3 = (var_x2 * var_x3)^0.5;
-%%
+%% 验证偏微分方程
+piancha12 = 0
+piancha23 = 0
+for i = 1:num
+    piancha12 = piancha12 + 0.5 * (X1_ori{i}(1,1:2)-mean_X(1,:))*inv(var_x1x2)*(X1_ori{i}(2,1:2)-mean_X(2,:))';
+    piancha23 = piancha23 + 0.5 * (X1_ori{i}(2,1:2)-mean_X(2,:))*inv(var_x2x3)*(X1_ori{i}(3,1:2)-mean_X(3,:))';
+end
+%% 求估计值
 guji = cell(1,num);
 aa1 = var_n1^(-1);
 bb1 = var_x1^(-1);
@@ -102,8 +112,10 @@ for i = 1:num
    guji{i} = [guji{i}; zz3'];
 end
 
+%% 估计位置与观测位置到真实位置的距离
 err = zeros(3,num);
 errd = zeros(3,num);
+%% 估计位置与观测位置到结构中心点的距离
 erru = zeros(3,num);
 errud = zeros(3,num);
 for i = 1:num
@@ -138,6 +150,16 @@ for i = 1:3
     end
 end
 
+figure;
+set(gcf,'color','white');
+data = [count 3*num-count];
+b=bar(data);
+set(gca,'XTickLabel',{'估计值','观测值'})
+set(gca,'YLim',[0 300])
+ylabel('样本个数（个）');
+title('估计真实位置的性能表现');
+saveas(gcf, 'ex1', 'png');
+
 index1 = chau > 0;
 count1 = 0;
 
@@ -148,6 +170,16 @@ for i = 1:3
         end
     end
 end
+
+figure;
+set(gcf,'color','white');
+data1 = [count1 3*num-count1];
+b=bar(data1);
+set(gca,'XTickLabel',{'估计值','观测值'})
+set(gca,'YLim',[0 300])
+ylabel('样本个数（个）');
+title('估计结构中心点位置的性能表现');
+saveas(gcf, 'ex2', 'png');
 
 % zongcha = zeros(1,num);
 % for i = 1:num
