@@ -9,7 +9,7 @@ t_start = cputime;  %计算时间
 %注释部分
 % load mydata.mat;      %data file
 %后期部分
-load ex3_X1.mat;
+load ex3_X2.mat;
 Pt = pt1_train;
 %%
 Num = size(Pt,2);     %Pt: observation point: two-dimention
@@ -97,7 +97,7 @@ for i=1:size(I,2)
     
 end
 %%
-save('ex3_X1_para.mat','canshu');
+%save('ex3_X1_para.mat','canshu');
 %%
 %imwrite(mov, map, 'four_component.gif', 'DelayTime', 0, 'LoopCount', inf);
 %save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
