@@ -212,7 +212,7 @@ figure;
 set(gcf,'color','white');
 data = [rate_nc rate_wc];
 b=bar(data);
-set(gca,'XTickLabel',{'Model One','Model Two'})
+set(gca,'XTickLabel',{'Test One','Test Two'})
 set(gca,'YLim',[0 1.0])
 ylabel('Accuracy');
 title('Classification Performance');

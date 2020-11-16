@@ -9,7 +9,7 @@ t_start = cputime;  %计算时间
 %注释部分
 % load mydata.mat;      %data file
 %后期部分
-load ex3_X2.mat;
+load ex3_X1.mat;
 Pt = pt1_train;
 %%
 Num = size(Pt,2);     %Pt: observation point: two-dimention
@@ -94,10 +94,12 @@ for i=1:size(I,2)
     canshu{3,i} = cov_Pt;
     AICv(i) = 2*sum(-log(sum_wi)) + 2*cnum*7;    %AIC
     BICv(i) = 2*sum(-log(sum_wi)) + cnum*7*log(Num);    %BIC
+    LL(i) = -2*sum(-log(sum_wi));
     
 end
 %%
-%save('ex3_X1_para.mat','canshu');
+%save('ex3_X1_para.mat','canshu','BICv','LL');
+save('ex3_X1_para.mat','canshu');
 %%
 %imwrite(mov, map, 'four_component.gif', 'DelayTime', 0, 'LoopCount', inf);
 %save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
@@ -113,15 +115,23 @@ ylabel('信息优化准则');
 
 figure;
 set(gcf,'color','white');
-hold on;
-for i=1:size(I,2)
-    plot(logBICv(i,2:k),'.-k');
-    text(K-20,logBICv(i,K)-5,['num=',num2str(I(i))]);
-end
-xlabel('迭代步数');
-ylabel('BIC信息优化准则');
-t_end = cputime;
-t_total = t_end - t_start;
+%plot(I,AICv,'-*k',I,BICv,'-sk');
+%legend('AIC优化准则','BIC优化准则');
+plot(I,LL,'-sk');
+xlabel('分布元个数');
+ylabel('对数似然函数值');
+
+% figure;
+% set(gcf,'color','white');
+% hold on;
+% for i=1:size(I,2)
+%     plot(logBICv(i,2:k),'.-k');
+%     text(K-20,logBICv(i,K)-5,['num=',num2str(I(i))]);
+% end
+% xlabel('迭代步数');
+% ylabel('BIC信息优化准则');
+% t_end = cputime;
+% t_total = t_end - t_start;
 
 
 %
