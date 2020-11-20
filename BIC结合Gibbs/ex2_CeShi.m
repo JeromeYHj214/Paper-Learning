@@ -100,5 +100,5 @@ b=bar(data);
 set(gca,'XTickLabel',{'二分布元','三分布元','四分布元','五分布元','六分布元'})
 set(gca,'YLim',[0 40])
 ylabel('样本个数（个）');
-title('测试集样本数与不同分布元模型匹配关系图');
+title('测试集样本对模型选择的投票结果');
 %saveas(gcf, 'ex1_ClaPer', 'png');

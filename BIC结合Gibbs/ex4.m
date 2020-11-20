@@ -216,4 +216,4 @@ set(gca,'XTickLabel',{'Test One','Test Two'})
 set(gca,'YLim',[0 1.0])
 ylabel('Accuracy');
 title('Classification Performance');
-saveas(gcf, 'ex4_ClaPer', 'png');
+%saveas(gcf, 'ex4_ClaPer', 'png');
