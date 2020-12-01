@@ -1,8 +1,8 @@
 close all;clear all;clc;
 
 load ex2_X1.mat ;
-load ex2_X1_para.mat ;
-X_test = cell(8,40);
+load ex2_X1_para_1.mat ;
+X_test = cell(9,40);
 for i = 1 : 40
     X_test{1,i} = X1{1,100+i};
     X_test{2,i} = X1{2,100+i};
@@ -39,6 +39,11 @@ X4_sigma = canshu{3,5};
 X5_alpha = canshu{1,1};
 X5_mu = canshu{2,1};
 X5_sigma = canshu{3,1};
+
+%7分布元
+X6_alpha = canshu{1,6};
+X6_mu = canshu{2,6};
+X6_sigma = canshu{3,6};
 %% 开始测试
 len = size(X_test,2);
 count2 = 0;
@@ -46,6 +51,7 @@ count3 = 0;
 count4 = 0;
 count5 = 0;
 count6 = 0;
+count7 = 0;
 for i = 1:len
     ge = X_test{1,i};
     X_test{4,i} = ge*log(X_pos)-X_pos;
@@ -78,27 +84,37 @@ for i = 1:len
             X4_alpha(4)/(2*pi*det(X4_sigma(:,:,4))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X4_mu(1:2,4))'*inv(X4_sigma(:,:,4))*(X_test{2,i}(1:2,j)-X4_mu(1:2,4))) + ...
             X4_alpha(5)/(2*pi*det(X4_sigma(:,:,5))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X4_mu(1:2,5))'*inv(X4_sigma(:,:,5))*(X_test{2,i}(1:2,j)-X4_mu(1:2,5))) + ...
             X4_alpha(6)/(2*pi*det(X4_sigma(:,:,6))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X4_mu(1:2,6))'*inv(X4_sigma(:,:,6))*(X_test{2,i}(1:2,j)-X4_mu(1:2,6))));
+        
+        X_test{9,i} = X_test{7,i} + log( X6_alpha(1)/(2*pi*det(X6_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X6_mu(1:2,1))'*inv(X6_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X6_mu(1:2,1))) +...
+            X6_alpha(2)/(2*pi*det(X6_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X6_mu(1:2,2))'*inv(X6_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X6_mu(1:2,2))) + ...
+            X6_alpha(3)/(2*pi*det(X6_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X6_mu(1:2,3))'*inv(X6_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X6_mu(1:2,3))) + ...
+            X6_alpha(4)/(2*pi*det(X6_sigma(:,:,4))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X6_mu(1:2,4))'*inv(X6_sigma(:,:,4))*(X_test{2,i}(1:2,j)-X6_mu(1:2,4))) + ...
+            X6_alpha(5)/(2*pi*det(X6_sigma(:,:,5))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X6_mu(1:2,5))'*inv(X6_sigma(:,:,5))*(X_test{2,i}(1:2,j)-X6_mu(1:2,5))) + ...
+            X6_alpha(6)/(2*pi*det(X6_sigma(:,:,6))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X6_mu(1:2,6))'*inv(X6_sigma(:,:,6))*(X_test{2,i}(1:2,j)-X6_mu(1:2,6))) + ...
+            X6_alpha(7)/(2*pi*det(X6_sigma(:,:,7))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X6_mu(1:2,7))'*inv(X6_sigma(:,:,7))*(X_test{2,i}(1:2,j)-X6_mu(1:2,7))));
     end
     
-    if (X_test{5,i} < X_test{7,i} && X_test{6,i} < X_test{7,i} && X_test{8,i} < X_test{7,i} && X_test{4,i} < X_test{7,i})
+    if (X_test{5,i} < X_test{7,i} && X_test{6,i} < X_test{7,i} && X_test{8,i} < X_test{7,i} && X_test{4,i} < X_test{7,i} && X_test{9,i} < X_test{7,i})
         count5 = count5 + 1;
-    elseif(X_test{6,i} < X_test{5,i} && X_test{7,i} < X_test{5,i} && X_test{8,i} < X_test{5,i} && X_test{4,i} < X_test{5,i})
+    elseif(X_test{6,i} < X_test{5,i} && X_test{7,i} < X_test{5,i} && X_test{8,i} < X_test{5,i} && X_test{4,i} < X_test{5,i} && X_test{9,i} < X_test{5,i})
         count3 = count3 + 1;
-    elseif(X_test{5,i} < X_test{6,i} && X_test{7,i} < X_test{6,i} && X_test{8,i} < X_test{6,i} && X_test{4,i} < X_test{6,i})
+    elseif(X_test{5,i} < X_test{6,i} && X_test{7,i} < X_test{6,i} && X_test{8,i} < X_test{6,i} && X_test{4,i} < X_test{6,i} && X_test{9,i} < X_test{4,i})
         count4 = count4 + 1;
-    elseif(X_test{5,i} < X_test{4,i} && X_test{6,i} < X_test{4,i} && X_test{7,i} < X_test{4,i} && X_test{8,i} < X_test{4,i})
+    elseif(X_test{5,i} < X_test{4,i} && X_test{6,i} < X_test{4,i} && X_test{7,i} < X_test{4,i} && X_test{8,i} < X_test{4,i} && X_test{9,i} < X_test{4,i})
         count2 = count2 + 1;
-    else
+    elseif(X_test{4,i} < X_test{8,i} && X_test{5,i} < X_test{8,i} && X_test{6,i} < X_test{8,i} && X_test{7,i} < X_test{8,i} && X_test{9,i} < X_test{8,i})
         count6 = count6 + 1;
+    else
+        count7 = count7 + 1;
     end
 end
 
 figure;
 set(gcf,'color','white');
-data = [count2 count3 count4 count5 count6];
+data = [count2 count3 count4 count5 count6 count7];
 b=bar(data);
-set(gca,'XTickLabel',{'二分布元','三分布元','四分布元','五分布元','六分布元'})
+set(gca,'XTickLabel',{'二分布元','三分布元','四分布元','五分布元','六分布元','七分布元'})
 set(gca,'YLim',[0 40])
 ylabel('样本个数（个）');
-title('测试集样本对模型选择的投票结果');
+title('测试集样本对备选模型的投票结果');
 %saveas(gcf, 'ex1_ClaPer', 'png');

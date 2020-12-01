@@ -67,20 +67,26 @@ for i = 101:num_X1
     pt2_test = [pt2_test X1{2,i}(1:2,:)];
 end
 figure(1);
-plot(pt2_train(1,:), pt2_train(2,:), '.');
+set(gcf,'color','white');
+plot(pt2_train(1,1:3000), pt2_train(2,1:3000),'.');
 %axis([min(pt1_train(1,:)) max(pt1_train(1,:)) min(pt1_train(2,:)) max(pt1_train(2,:))]);
 hold on;
-save('ex2_X1.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt2_train','pt2_test');
+title('Feature Distribution');
+ylabel('X');
+xlabel('Y');
+%save('ex2_X1.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt2_train','pt2_test');
 
 %%
 %load ex2_X1.mat ;
 figure(2);
 set(gcf,'color','white');
-plot(pt2_train(1,1:3000), pt2_train(2,1:3000),'r.');
+plot(pt2_train(1,1:3000), pt2_train(2,1:3000),'.');
 hold on;
 for m=1:5
     [ex1,ey11,ex2,ey12] = Get_Ellipse(mu_X1(m,:),sigma_X1(:,:,m));
-    plot(ex1,ey11,'b',ex2,ey12,'b');
+    plot(ex1,ey11,'r',ex2,ey12,'r');
 end
-title('模型在特征空间的真实分布');
-saveas(gcf, 'ex2_realDis', 'png');
+title('Feature Distribution');
+ylabel('X');
+xlabel('Y');
+%saveas(gcf, 'ex2_realDis', 'png');

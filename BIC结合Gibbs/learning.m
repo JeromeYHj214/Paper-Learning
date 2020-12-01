@@ -9,8 +9,8 @@ t_start = cputime;  %计算时间
 %注释部分
 % load mydata.mat;      %data file
 %后期部分
-load ex3_X1.mat;
-Pt = pt1_train;
+load ex2_X1.mat;
+Pt = pt2_train;
 %%
 Num = size(Pt,2);     %Pt: observation point: two-dimention
 x_dim = size(Pt,1);
@@ -24,8 +24,8 @@ y_max = max(Pt(2,:));
 %matrix. The weights of individual distributions are equal.
 
 %100: The max num of the iteration
-K = 100;          %iterative times
-I = 2:4;
+K = 150;          %iterative times
+I = 2:7;
 %%  后期添加
 pos = get(gcf, 'Position');
 width = pos(3);
@@ -98,12 +98,11 @@ for i=1:size(I,2)
     
 end
 %%
-%save('ex3_X1_para.mat','canshu','BICv','LL');
-save('ex3_X1_para.mat','canshu');
+%save('ex2_X1_para_1.mat','canshu','BICv','LL','I');
 %%
 %imwrite(mov, map, 'four_component.gif', 'DelayTime', 0, 'LoopCount', inf);
-%save('FMM_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
-%load FMM_parameter.mat;
+%save('FMM2_parameter.mat', 'wi', 'miu' ,'cov_Pt', 'AICv', 'BICv' ,'I') ;
+%load FMM2_parameter.mat;
 figure;
 set(gcf,'color','white');
 %plot(I,AICv,'-*k',I,BICv,'-sk');
@@ -112,6 +111,7 @@ plot(I,BICv,'-sk');
 legend('BIC优化准则');
 xlabel('分布元个数');
 ylabel('信息优化准则');
+set(gca,'XTick',I(1):1:I(length(I)));
 
 figure;
 set(gcf,'color','white');
@@ -120,6 +120,7 @@ set(gcf,'color','white');
 plot(I,LL,'-sk');
 xlabel('分布元个数');
 ylabel('对数似然函数值');
+set(gca,'XTick',I(1):1:I(length(I)));
 
 % figure;
 % set(gcf,'color','white');
