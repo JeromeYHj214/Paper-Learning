@@ -80,7 +80,7 @@ xlabel('Y');
 %load ex2_X1.mat ;
 figure(2);
 set(gcf,'color','white');
-plot(pt2_train(1,1:3000), pt2_train(2,1:3000),'.');
+plot(pt2_train(1,1:1500), pt2_train(2,1:1500),'.');
 hold on;
 for m=1:5
     [ex1,ey11,ex2,ey12] = Get_Ellipse(mu_X1(m,:),sigma_X1(:,:,m));

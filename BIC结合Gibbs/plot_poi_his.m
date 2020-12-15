@@ -1,9 +1,12 @@
 close all;clear all;clc;
-num = 500000;lam = 25;
+num = 500000;lam = 60;
+lam_learn = 58.25
 sample = poissrnd(lam,num,1);
+sample_learn = poissrnd(lam_learn,num,1);
 X = min(sample):1:max(sample);
-x = min(sample):max(sample);
-px= poisspdf(x,25);
+X_learn = min(sample_learn):1:max(sample_learn);
+% x = min(sample):max(sample);
+% px= poisspdf(x,25);
 % figure;
 % hist(sample,X);
 % title('Random Numbers of Poisson distribute (using hist)');
@@ -12,7 +15,15 @@ px= poisspdf(x,25);
 figure;
 [counts,binloca]=hist(sample,X);
 counts=counts/num;
-bar(binloca,counts,1);
-title('Random Numbers of Poisson distribute (using bar)');
+
+[counts_learn,binloca_learn]=hist(sample_learn,X_learn);
+counts_learn=counts_learn/num;
+
+bar(binloca,counts,1,'FaceColor','r');
+hold on;
+b = bar(binloca_learn,counts_learn,1,'FaceColor','b');
+%title('Random Numbers of Poisson distribute (using bar)');
+title('Poisson Distribute');
+legend('real model','learn model')
 hold on
-plot(x,px,'b.-')
+% plot(x,px,'b.-')
