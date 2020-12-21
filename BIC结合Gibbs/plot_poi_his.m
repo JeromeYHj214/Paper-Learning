@@ -19,11 +19,12 @@ counts=counts/num;
 [counts_learn,binloca_learn]=hist(sample_learn,X_learn);
 counts_learn=counts_learn/num;
 
-bar(binloca,counts,1,'FaceColor','r');
+bar(binloca,counts,1,'FaceColor','k');
 hold on;
-b = bar(binloca_learn,counts_learn,1,'FaceColor','b');
+bar(binloca_learn,counts_learn,1,'FaceColor','w');
 %title('Random Numbers of Poisson distribute (using bar)');
 title('Poisson Distribute');
 legend('real model','learn model')
 hold on
+set(gcf,'color','white');
 % plot(x,px,'b.-')
