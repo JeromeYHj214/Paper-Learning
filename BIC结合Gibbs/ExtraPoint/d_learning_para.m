@@ -1,14 +1,27 @@
 clear all;clc;close all;
 t_start = cputime;  %计算时间
 
-% load T20.mat;
-% X = T20_feat_pca(1:1600,:);
+load T20_finalData.mat;
+X = [];
+len = size(cell_T20_point_train,2);
+for i = 1:len
+    X = [X;cell_T20_point_train{2,i}];
+end
 
-% load T15.mat;
-% X = T15_feat_pca(1:589,:);
+% load T15_finalData.mat;
+% X = [];
+% len = size(cell_T15_point_train,2);
+% for i = 1:len
+%     X = [X;cell_T15_point_train{2,i}];
+% end
 
-load T14.mat;
-X = T14_feat_pca(1:3280,:);
+% load T14_finalData.mat;
+% X = [];
+% len = size(cell_T14_point_train,2);
+% for i = 1:len
+%     X = [X;cell_T14_point_train{2,i}];
+% end
+
 
 numComlim=10;
 AIC = zeros(1,numComlim);
@@ -47,6 +60,6 @@ legend('AIC优化准则','BIC优化准则')
 xlabel('分布元个数');
 ylabel('优化准则值');
 
-% save('T20model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
-% save('T15model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
-save('T14model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
+save('T20model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
+%save('T15model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
+%save('T14model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');

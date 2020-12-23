@@ -2,14 +2,14 @@ close all;clear all;clc;
 
 %T14标记1；T15标记2；T20标记3；
 load T14model.mat;
-gm1 = BestModelBIC; 
-%gm1 = VoModel; 
+% gm1 = BestModelBIC; 
+gm1 = VoModel; 
 load T15model.mat;
-gm2 = BestModelBIC; 
-%gm2 = VoModel; 
+% gm2 = BestModelBIC; 
+gm2 = VoModel; 
 load T20model.mat;
-gm3 = BestModelBIC;
-%gm3 = VoModel; 
+% gm3 = BestModelBIC;
+gm3 = VoModel; 
 
 load T14_finalData.mat;
 load T15_finalData.mat;
@@ -25,7 +25,6 @@ for i = 1:len
 end
 card = card ./ len;
 
-%cell_all_data = [cell_T14_point,cell_T15_point,cell_T20_point];
 %构建测试模型
 cell_all_data = [cell_T14_point_text,cell_T15_point_text,cell_T20_point_text];
 len_all_data = size(cell_all_data,2);
