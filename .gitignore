@@ -1,2 +1,5 @@
 
 马尔科夫随机场图像分析.pdf
+*.mat
+BIC结合Gibbs/ExtraPoint/c_load_pca_keypoint.m
+*.mat

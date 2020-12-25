@@ -18,7 +18,8 @@ figure(2);
 T14_X = min(T14_card):1:max(T14_card);
 [T14_counts,T14_binloca]=hist(T14_card,T14_X);
 T14_counts=T14_counts / 40;
-bar(T14_binloca(1:280),T14_counts(1:280),1,'FaceColor','b');
+% bar(T14_binloca(1:280),T14_counts(1:280),1,'FaceColor','b');
+bar(T14_binloca,T14_counts,1,'FaceColor','b');
 hold on;
 
 T15_X = min(T15_card):1:max(T15_card);
