@@ -38,73 +38,73 @@ for i = 1:len
     cell_T20_point{3,i} = 3;
 end
 
-% %前三十张作为训练
-% for i = 1:30
-%     %保存每张图像的基数信息
-%     cell_T14_point_train{1,i} = cell_T14_point{1,i};
-%     cell_T15_point_train{1,i} = cell_T15_point{1,i};
-%     cell_T20_point_train{1,i} = cell_T20_point{1,i};
-%     
-%     %保存每张图像的特征信息
-%     cell_T14_point_train{2,i} = cell_T14_point{2,i};
-%     cell_T15_point_train{2,i} = cell_T15_point{2,i};
-%     cell_T20_point_train{2,i} = cell_T20_point{2,i};
-%     
-%     cell_T14_point_train{3,i} = cell_T14_point{3,i};
-%     cell_T15_point_train{3,i} = cell_T15_point{3,i};
-%     cell_T20_point_train{3,i} = cell_T20_point{3,i};
-% end
-% 
-% %最后十张作为测试
-% for i = 31:len
-%     %保存每张图像的基数信息
-%     cell_T14_point_text{1,i-30} = cell_T14_point{1,i};
-%     cell_T15_point_text{1,i-30} = cell_T15_point{1,i};
-%     cell_T20_point_text{1,i-30} = cell_T20_point{1,i};
-%     
-%     %保存每张图像的特征信息
-%     cell_T14_point_text{2,i-30} = cell_T14_point{2,i};
-%     cell_T15_point_text{2,i-30} = cell_T15_point{2,i};
-%     cell_T20_point_text{2,i-30} = cell_T20_point{2,i};
-%     
-%     cell_T14_point_text{3,i-30} = cell_T14_point{3,i};
-%     cell_T15_point_text{3,i-30} = cell_T15_point{3,i};
-%     cell_T20_point_text{3,i-30} = cell_T20_point{3,i};
-% end
-
-%后三十张作为训练
+%前三十张作为训练
 for i = 1:30
     %保存每张图像的基数信息
-    cell_T14_point_train{1,i} = cell_T14_point{1,i+10};
-    cell_T15_point_train{1,i} = cell_T15_point{1,i+10};
-    cell_T20_point_train{1,i} = cell_T20_point{1,i+10};
+    cell_T14_point_train{1,i} = cell_T14_point{1,i};
+    cell_T15_point_train{1,i} = cell_T15_point{1,i};
+    cell_T20_point_train{1,i} = cell_T20_point{1,i};
     
     %保存每张图像的特征信息
-    cell_T14_point_train{2,i} = cell_T14_point{2,i+10};
-    cell_T15_point_train{2,i} = cell_T15_point{2,i+10};
-    cell_T20_point_train{2,i} = cell_T20_point{2,i+10};
+    cell_T14_point_train{2,i} = cell_T14_point{2,i};
+    cell_T15_point_train{2,i} = cell_T15_point{2,i};
+    cell_T20_point_train{2,i} = cell_T20_point{2,i};
     
-    cell_T14_point_train{3,i} = cell_T14_point{3,i+10};
-    cell_T15_point_train{3,i} = cell_T15_point{3,i+10};
-    cell_T20_point_train{3,i} = cell_T20_point{3,i+10};
+    cell_T14_point_train{3,i} = cell_T14_point{3,i};
+    cell_T15_point_train{3,i} = cell_T15_point{3,i};
+    cell_T20_point_train{3,i} = cell_T20_point{3,i};
 end
 
-%前十张作为测试
-for i = 1:10
+%最后十张作为测试
+for i = 31:len
     %保存每张图像的基数信息
-    cell_T14_point_text{1,i} = cell_T14_point{1,i};
-    cell_T15_point_text{1,i} = cell_T15_point{1,i};
-    cell_T20_point_text{1,i} = cell_T20_point{1,i};
+    cell_T14_point_text{1,i-30} = cell_T14_point{1,i};
+    cell_T15_point_text{1,i-30} = cell_T15_point{1,i};
+    cell_T20_point_text{1,i-30} = cell_T20_point{1,i};
     
     %保存每张图像的特征信息
-    cell_T14_point_text{2,i} = cell_T14_point{2,i};
-    cell_T15_point_text{2,i} = cell_T15_point{2,i};
-    cell_T20_point_text{2,i} = cell_T20_point{2,i};
+    cell_T14_point_text{2,i-30} = cell_T14_point{2,i};
+    cell_T15_point_text{2,i-30} = cell_T15_point{2,i};
+    cell_T20_point_text{2,i-30} = cell_T20_point{2,i};
     
-    cell_T14_point_text{3,i} = cell_T14_point{3,i};
-    cell_T15_point_text{3,i} = cell_T15_point{3,i};
-    cell_T20_point_text{3,i} = cell_T20_point{3,i};
+    cell_T14_point_text{3,i-30} = cell_T14_point{3,i};
+    cell_T15_point_text{3,i-30} = cell_T15_point{3,i};
+    cell_T20_point_text{3,i-30} = cell_T20_point{3,i};
 end
+
+% %后三十张作为训练
+% for i = 1:30
+%     %保存每张图像的基数信息
+%     cell_T14_point_train{1,i} = cell_T14_point{1,i+10};
+%     cell_T15_point_train{1,i} = cell_T15_point{1,i+10};
+%     cell_T20_point_train{1,i} = cell_T20_point{1,i+10};
+%     
+%     %保存每张图像的特征信息
+%     cell_T14_point_train{2,i} = cell_T14_point{2,i+10};
+%     cell_T15_point_train{2,i} = cell_T15_point{2,i+10};
+%     cell_T20_point_train{2,i} = cell_T20_point{2,i+10};
+%     
+%     cell_T14_point_train{3,i} = cell_T14_point{3,i+10};
+%     cell_T15_point_train{3,i} = cell_T15_point{3,i+10};
+%     cell_T20_point_train{3,i} = cell_T20_point{3,i+10};
+% end
+% 
+% %前十张作为测试
+% for i = 1:10
+%     %保存每张图像的基数信息
+%     cell_T14_point_text{1,i} = cell_T14_point{1,i};
+%     cell_T15_point_text{1,i} = cell_T15_point{1,i};
+%     cell_T20_point_text{1,i} = cell_T20_point{1,i};
+%     
+%     %保存每张图像的特征信息
+%     cell_T14_point_text{2,i} = cell_T14_point{2,i};
+%     cell_T15_point_text{2,i} = cell_T15_point{2,i};
+%     cell_T20_point_text{2,i} = cell_T20_point{2,i};
+%     
+%     cell_T14_point_text{3,i} = cell_T14_point{3,i};
+%     cell_T15_point_text{3,i} = cell_T15_point{3,i};
+%     cell_T20_point_text{3,i} = cell_T20_point{3,i};
+% end
 
 save('T14_finalData.mat','cell_T14_point','cell_T14_point_text','cell_T14_point_train');
 save('T15_finalData.mat','cell_T15_point','cell_T15_point_text','cell_T15_point_train');

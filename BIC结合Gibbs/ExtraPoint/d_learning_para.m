@@ -29,7 +29,7 @@ BIC = zeros(1,numComlim);
 GMModels = cell(1,numComlim);
 options = statset('Display','final','MaxIter',1000,'TolFun',1e-5);
 for k = 1:numComlim
-    GMModels{k} = fitgmdist(X,k,'Options',options','Replicates',10);
+    GMModels{k} = fitgmdist(X,k,'Options',options,'Replicates',1);
     AIC(k)= GMModels{k}.AIC;
     BIC(k)= GMModels{k}.BIC;
 end
@@ -59,6 +59,6 @@ legend('AIC优化准则','BIC优化准则')
 xlabel('分布元个数');
 ylabel('优化准则值');
 
-% save('T20model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
-% save('T15model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
- save('T14model.mat','AIC','BIC','BestModelAIC','BestModelBIC','VoModel');
+% save('T20model.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');
+% save('T15model.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');
+ save('T14model.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');

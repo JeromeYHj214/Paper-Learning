@@ -3,13 +3,13 @@ close all;clear all;clc;
 %T14标记1；T15标记2；T20标记3；
 load T14model.mat;
 % gm1 = BestModelBIC; 
-gm1 = VoModel; 
+gm1 = GMModels{3}; 
 load T15model.mat;
 % gm2 = BestModelBIC; 
-gm2 = VoModel; 
+gm2 = GMModels{2}; 
 load T20model.mat;
 % gm3 = BestModelBIC;
-gm3 = VoModel; 
+gm3 = GMModels{3}; 
 
 load T14_finalData.mat;
 load T15_finalData.mat;
