@@ -2,28 +2,23 @@ close all;clear all;clc;
 
 %T14标记1；T15标记2；T20标记3；
 load T14model.mat;
-% gm1 = BestModelBIC; 
-gm1 = GMModels{3}; 
+gm1 = BestModelBIC; 
+% gm1 = GMModels{3}; 
 load T15model.mat;
-% gm2 = BestModelBIC; 
-gm2 = GMModels{2}; 
+gm2 = BestModelBIC; 
+% gm2 = GMModels{3}; 
 load T20model.mat;
-% gm3 = BestModelBIC;
-gm3 = GMModels{3}; 
+gm3 = BestModelBIC;
+% gm3 = GMModels{3}; 
 
 load T14_finalData.mat;
 load T15_finalData.mat;
 load T20_finalData.mat;
 
 card = zeros(1,3);
-%减去10为了学习训练模型的pios；
-len = size(cell_T14_point,2)-10;
-for i = 1:len
-   card(1) = card(1) + cell_T14_point{1,i};
-   card(2) = card(2) + cell_T15_point{1,i};
-   card(3) = card(3) + cell_T20_point{1,i};
-end
-card = card ./ len;
+card(1) = MLE_T14card;
+card(2) = MLE_T15card;
+card(3) = MLE_T20card;
 
 %构建测试模型
 cell_all_data = [cell_T14_point_text,cell_T15_point_text,cell_T20_point_text];

@@ -9,8 +9,8 @@ t_start = cputime;  %计算时间
 %注释部分
 % load mydata.mat;      %data file
 %后期部分
-load ex2_X1.mat;
-Pt = pt2_train;
+load ex3_X1.mat;
+Pt = pt1_train;
 %%
 Num = size(Pt,2);     %Pt: observation point: two-dimention
 x_dim = size(Pt,1);
@@ -24,8 +24,8 @@ y_max = max(Pt(2,:));
 %matrix. The weights of individual distributions are equal.
 
 %100: The max num of the iteration
-K = 150;          %iterative times
-I = 2:7;
+K = 100;          %iterative times
+I = 1:7;
 %%  后期添加
 pos = get(gcf, 'Position');
 width = pos(3);
@@ -92,11 +92,12 @@ for i=1:size(I,2)
     canshu{1,i} = wi;
     canshu{2,i} = miu;
     canshu{3,i} = cov_Pt;
-    AICv(i) = 2*sum(-log(sum_wi)) + 2*cnum*7;    %AIC
-    BICv(i) = 2*sum(-log(sum_wi)) + cnum*7*log(Num);    %BIC
+    AICv(i) = 2*sum(-log(sum_wi)) + 2*cnum*3;    %AIC
+    BICv(i) = 2*sum(-log(sum_wi)) + cnum*3*log(Num);    %BIC
     LL(i) = -2*sum(-log(sum_wi));
     
 end
+save('ex3_X1_para.mat','canshu');
 %%
 %save('ex2_X1_para_1.mat','canshu','BICv','LL','I');
 %%
