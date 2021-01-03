@@ -27,9 +27,9 @@ numComlim=10;
 AIC = zeros(1,numComlim);
 BIC = zeros(1,numComlim);
 GMModels = cell(1,numComlim);
-options = statset('Display','final','MaxIter',1000,'TolFun',1e-5);
+options = statset('Display','final','MaxIter',10,'TolFun',1e-5);
 for k = 1:numComlim
-    GMModels{k} = fitgmdist(X,k,'Options',options,'Replicates',10);
+    GMModels{k} = fitgmdist(X,k,'Options',options,'Replicates',1);
     AIC(k)= GMModels{k}.AIC;
     BIC(k)= GMModels{k}.BIC;
 end

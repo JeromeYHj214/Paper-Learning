@@ -7,12 +7,18 @@ num_X1 = 140;
 lambda_X1 = 21;
 
 %alpha mu sigma为点模式的特征分布参数，符合高斯分布
+% mu_X1_x1 = [9 5];
+% mu_X1_x2 = [9 15];
+% mu_X1_x3 = [6 12];
 mu_X1_x1 = [9 5];
 mu_X1_x2 = [9 15];
-mu_X1_x3 = [6 12];
+mu_X1_x3 = [5 10];
 mu_X1 = [mu_X1_x1;mu_X1_x2;mu_X1_x3];
+% sigma_X1_x1 = [1 0; 0 1];
+% sigma_X1_x2 = [2 0.5; 0.5 2];
+% sigma_X1_x3 = [2 0.5; 0.5 2];
 sigma_X1_x1 = [1 0; 0 1];
-sigma_X1_x2 = [2 0.5; 0.5 2];
+sigma_X1_x2 = [2 -0.5; -0.5 2];
 sigma_X1_x3 = [2 0.5; 0.5 2];
 sigma_X1 = zeros(2,2,3);
 sigma_X1(:,:,1) = sigma_X1_x1;
@@ -65,4 +71,4 @@ aa = min(X1_cad(1:100)):1:max(X1_cad(1:100));
 [bb ,cc] = hist(X1_cad(1:100),aa);
 bb = bb /100;
 bar(cc,bb,1);
-%save('ex3_X1.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt1_train','pt1_test','X1_cad');
+save('ex3_X1.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt1_train','pt1_test','X1_cad');

@@ -36,4 +36,11 @@ legend('AIC优化准则','BIC优化准则')
 xlabel('分布元个数');
 ylabel('优化准则值');
 
-%save('ex3_X3_model.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');
+pios = 0;
+len_train = 100;
+for i = 1 : len_train
+    pios = pios + X1_cad(i);
+end    
+pios = pios / len_train
+
+save('ex3_X3_model.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels','pios');

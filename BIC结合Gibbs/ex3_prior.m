@@ -34,9 +34,9 @@ X2_pos = X2_pos / 100;
 % X2_alpha = canshu{1,2};
 % X2_mu = canshu{2,2};
 % X2_sigma = canshu{3,2};
-X2_alpha = canshu{1,1};
-X2_mu = canshu{2,1};
-X2_sigma = canshu{3,1};
+X2_alpha = canshu{1,2};
+X2_mu = canshu{2,2};
+X2_sigma = canshu{3,2};
 
 %% 获取X3的测试集与泊松强度
 load ex3_X3.mat
@@ -123,9 +123,11 @@ for i = 1:len
     X_test{6,i} = ge*log(X2_pos)-X2_pos;
     X_test{7,i} = ge*log(X3_pos)-X3_pos;
     for j = 1:ge
-        X_test{5,i} = X_test{5,i} + log( X1_alpha(1)/(2*pi*det(X1_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))'*inv(X1_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))) +...
-            X1_alpha(2)/(2*pi*det(X1_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))'*inv(X1_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))) + ...
-            X1_alpha(3)/(2*pi*det(X1_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))'*inv(X1_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))) );
+%         X_test{5,i} = X_test{5,i} + log( X1_alpha(1)/(2*pi*det(X1_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))'*inv(X1_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))) +...
+%             X1_alpha(2)/(2*pi*det(X1_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))'*inv(X1_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))) + ...
+%             X1_alpha(3)/(2*pi*det(X1_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))'*inv(X1_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X1_mu(1:2,3))) );
+X_test{5,i} = X_test{5,i} + log( X1_alpha(1)/(2*pi*det(X1_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))'*inv(X1_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X1_mu(1:2,1))) +...
+            X1_alpha(2)/(2*pi*det(X1_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))'*inv(X1_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X1_mu(1:2,2))));
         
         %三分布元
         %                 X_test{6,i} = X_test{6,i} + log( X2_alpha(1)/(2*pi*det(X2_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))'*inv(X2_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X2_mu(1:2,1))) +...
@@ -143,8 +145,7 @@ for i = 1:len
         %             X2_alpha(4)/(2*pi*det(X2_sigma(:,:,4))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X2_mu(1:2,4))'*inv(X2_sigma(:,:,4))*(X_test{2,i}(1:2,j)-X2_mu(1:2,4))) );
         
         X_test{7,i} = X_test{7,i} + log( X3_alpha(1)/(2*pi*det(X3_sigma(:,:,1))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))'*inv(X3_sigma(:,:,1))*(X_test{2,i}(1:2,j)-X3_mu(1:2,1))) +...
-            X3_alpha(2)/(2*pi*det(X3_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))'*inv(X3_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))) + ...
-            X3_alpha(3)/(2*pi*det(X3_sigma(:,:,3))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,3))'*inv(X3_sigma(:,:,3))*(X_test{2,i}(1:2,j)-X3_mu(1:2,3))) );
+            X3_alpha(2)/(2*pi*det(X3_sigma(:,:,2))^0.5)*exp(-0.5*(X_test{2,i}(1:2,j)-X3_mu(1:2,2))'*inv(X3_sigma(:,:,2))*(X_test{2,i}(1:2,j)-X3_mu(1:2,2)))  );
     end
     if X_test{5,i} > X_test{6,i} && X_test{5,i} > X_test{7,i}
         X_test{4,i} = 1;
@@ -163,9 +164,18 @@ end
 rate_nc = count_nc/len;
 
 %% 点模式概率 + 3分布元
-X2_alpha = canshu{1,2};
-X2_mu = canshu{2,2};
-X2_sigma = canshu{3,2};
+load ex3_X1_para
+X1_alpha = canshu{1,3};
+X1_mu = canshu{2,3};
+X1_sigma = canshu{3,3};
+load ex3_X2_para
+X2_alpha = canshu{1,3};
+X2_mu = canshu{2,3};
+X2_sigma = canshu{3,3};
+load ex3_X3_para
+X3_alpha = canshu{1,3};
+X3_mu = canshu{2,3};
+X3_sigma = canshu{3,3};
 for i = 1:len
     ge = X_test{1,i};
     X_test{5,i} = ge*log(X1_pos)-X1_pos;
