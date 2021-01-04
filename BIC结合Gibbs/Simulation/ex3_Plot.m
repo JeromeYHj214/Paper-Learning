@@ -15,6 +15,7 @@ x3_feat = [pt1_train pt1_test];
 
 %% 描绘特征分布
 aa = 500;
+figure;
 subplot(1,2,2);
 set(gcf,'color','white');
 plot(x1_feat(1,1:aa),x1_feat(2,1:aa),'.r');
@@ -24,9 +25,9 @@ hold on
 plot(x3_feat(1,1:aa),x3_feat(2,1:aa),'og');
 l1 = legend('类一','类二','类三');
 set(l1,'FontSize',15)
-ylabel('X_1','FontSize',15);
-xlabel('X_2','FontSize',15);
-title('（b）数据集的特征分布','FontSize',15);
+ylabel('Y','FontSize',15);
+xlabel({'X';'（b）数据集的特征分布'},'FontSize',15);
+% title('（b）数据集的特征分布','FontSize',15);
 %% 描绘基数分布 自己的方法
 max_val = max([x1_card x2_card x3_card]);
 x1_ratio = zeros(1,max_val);
@@ -57,8 +58,8 @@ set(b(3),'FaceColor',color(3));
 l1 = legend('类一','类二','类三');
 set(l1,'FontSize',15)
 ylabel('频率','FontSize',15);
-xlabel('基数 n','FontSize',15);
-title('（a）数据集的基数分布','FontSize',15);
+xlabel({'基数 n';'（a）数据集的基数分布'},'FontSize',15);
+% title('（a）数据集的基数分布','FontSize',15);
 % title('Cardinality histogram');
 %%
 aa = 3;
@@ -70,8 +71,8 @@ load ex3_X1_model.mat;
 gm1 = GMModels{aa};
 [x1,x2] = meshgrid(0:0.01:14,2:0.01:20);
 contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'-r');
-ylabel('X_1','FontSize',15);
-xlabel('X_2','FontSize',15);
+ylabel('Y','FontSize',15);
+xlabel('X','FontSize',15);
 hold on;
 
 load ex3_X2_model.mat;

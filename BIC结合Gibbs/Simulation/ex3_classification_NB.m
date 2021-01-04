@@ -74,13 +74,67 @@ end
 ratio_num_this = num_this / 120 * 100;
 ratio_num_NB = num_NB / 120 * 100;
 figure;
+subplot(1,3,3);
 set(gcf,'color','white');
 data = [ratio_num_NB ratio_num_this];
 X = [1 2]
 b=bar(X,data);
 text(X(1)-0.1,data(1)+3,num2str(round(data(1),1)),'FontSize',15);
 text(X(2)-0.1,data(2)+3,num2str(round(data(2),1)),'FontSize',15);
-set(gca,'XTickLabel',{'NB Model','Poisson Model'},'FontSize',15)
+set(gca,'XTickLabel',{'NB Model','Poisson Model'})
 set(gca,'YLim',[0 100])
 ylabel('准确率(%)','FontSize',15);
+xlabel({' ';'(c)分类结果'},'FontSize',15);
 % title('Classification Performance');
+
+subplot(1,3,2);
+aa = 3;
+bb = 3;
+cc = 3;
+set(gcf,'color','white');
+load ex3_X1_model.mat;
+gm1 = GMModels{aa};
+[x1,x2] = meshgrid(0:0.01:14,2:0.01:20);
+contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'-r');
+ylabel('Y','FontSize',15);
+xlabel({'X';'(b)模型特征分布'},'FontSize',15);
+hold on;
+
+load ex3_X2_model.mat;
+gm2 = GMModels{bb};
+contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'.g');
+hold on;
+
+load ex3_X3_model.mat;
+gm3 = GMModels{cc};
+contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'*b');
+hold on;
+l1 = legend('类一','类二','类三');
+set(l1,'FontSize',15)
+
+subplot(1,3,1)
+num = 500000;
+sample1 = poissrnd(all_pios(1),num,1);
+sample2 = poissrnd(all_pios(2),num,1);
+sample3 = poissrnd(all_pios(3),num,1);
+X1 = min(sample1):1:max(sample1);
+X2 = min(sample2):1:max(sample2);
+X3 = min(sample3):1:max(sample3);
+[counts1,binloca1]=hist(sample1,X1);
+counts1=counts1/num;
+
+[counts2,binloca2]=hist(sample2,X2);
+counts2=counts2/num;
+
+[counts3,binloca3]=hist(sample3,X3);
+counts3=counts3/num;
+
+bar(binloca1,counts1,1,'FaceColor','r');
+hold on;
+bar(binloca2,counts2,1,'FaceColor','g');
+hold on;
+bar(binloca3,counts3,1,'FaceColor','b');
+l1 = legend('类一','类二','类三')
+set(l1,'FontSize',15);
+ylabel('频率','FontSize',15);
+xlabel({'基数 n';'(a)模型基数分布'},'FontSize',15);
