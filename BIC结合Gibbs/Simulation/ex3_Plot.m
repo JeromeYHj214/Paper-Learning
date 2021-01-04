@@ -52,9 +52,9 @@ set(gcf,'color','white');
 b = bar(bar_set,4);
 axis([5 55,-inf,inf]);
 color = ['r','b','g'];
-set(b(1),'FaceColor',color(1));
-set(b(2),'FaceColor',color(2));
-set(b(3),'FaceColor',color(3));
+set(b(1),'FaceColor','none','EdgeColor','r','LineStyle',':');
+set(b(2),'FaceColor','none','EdgeColor','g','LineStyle','-');
+set(b(3),'FaceColor','none','EdgeColor','b','LineStyle','--');
 l1 = legend('类一','类二','类三');
 set(l1,'FontSize',15)
 ylabel('频率','FontSize',15);
@@ -70,19 +70,19 @@ set(gcf,'color','white');
 load ex3_X1_model.mat;
 gm1 = GMModels{aa};
 [x1,x2] = meshgrid(0:0.01:14,2:0.01:20);
-contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'-r');
+contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),5,':r');
 ylabel('Y','FontSize',15);
 xlabel('X','FontSize',15);
 hold on;
 
 load ex3_X2_model.mat;
 gm2 = GMModels{bb};
-contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'.g');
+contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),5,'--g');
 hold on;
 
 load ex3_X3_model.mat;
 gm3 = GMModels{cc};
-contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'*b');
+contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),5,'-b');
 hold on;
 l1 = legend('类一','类二','类三');
 set(l1,'FontSize',15)
