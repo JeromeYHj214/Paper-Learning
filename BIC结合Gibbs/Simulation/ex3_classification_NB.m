@@ -95,19 +95,19 @@ set(gcf,'color','white');
 load ex3_X1_model.mat;
 gm1 = GMModels{aa};
 [x1,x2] = meshgrid(0:0.01:14,2:0.01:20);
-contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),':r');
+contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'-r');
 ylabel('Y','FontSize',15);
 xlabel({'X';'(b)模型特征分布'},'FontSize',15);
 hold on;
 
 load ex3_X2_model.mat;
 gm2 = GMModels{bb};
-contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'-g');
+contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'-.b');
 hold on;
 
 load ex3_X3_model.mat;
 gm3 = GMModels{cc};
-contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),'--b');
+contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'--g');
 hold on;
 l1 = legend('类一','类二','类三');
 set(l1,'FontSize',15)
@@ -129,11 +129,11 @@ counts2=counts2/num;
 [counts3,binloca3]=hist(sample3,X3);
 counts3=counts3/num;
 
-bar(binloca1,counts1,1,'FaceColor','none','EdgeColor','r','LineStyle',':');
+bar(binloca1,counts1,1,'FaceColor','none','EdgeColor','r','LineStyle','-');
 hold on;
-bar(binloca2,counts2,1,'FaceColor','none','EdgeColor','g','LineStyle','-');
+bar(binloca2,counts2,1,'FaceColor','none','EdgeColor','b','LineStyle','-.');
 hold on;
-bar(binloca3,counts3,1,'FaceColor','none','EdgeColor','b','LineStyle','--');
+bar(binloca3,counts3,1,'FaceColor','none','EdgeColor','g','LineStyle','--');
 l1 = legend('类一','类二','类三')
 set(l1,'FontSize',15);
 ylabel('频率','FontSize',15);

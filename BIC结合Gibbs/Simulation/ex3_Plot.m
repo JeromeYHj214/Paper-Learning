@@ -52,9 +52,9 @@ set(gcf,'color','white');
 b = bar(bar_set,4);
 axis([5 55,-inf,inf]);
 color = ['r','b','g'];
-set(b(1),'FaceColor','none','EdgeColor','r','LineStyle',':');
-set(b(2),'FaceColor','none','EdgeColor','g','LineStyle','-');
-set(b(3),'FaceColor','none','EdgeColor','b','LineStyle','--');
+set(b(1),'FaceColor','none','EdgeColor','r','LineStyle','-');
+set(b(2),'FaceColor','none','EdgeColor','b','LineStyle','-.');
+set(b(3),'FaceColor','none','EdgeColor','g','LineStyle','--');
 l1 = legend('类一','类二','类三');
 set(l1,'FontSize',15)
 ylabel('频率','FontSize',15);
