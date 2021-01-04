@@ -1,8 +1,8 @@
 clc;clear;close;
 run('E:\VLFeat\vlfeat-0.9.21\toolbox\vl_setup.m')
 vl_version verbose
-% folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T14_brick1';         %14点数最多2 12
-folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T20_upholstery';     %20容易出问题，基数属于中等 2 10
+% folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T14_brick1';         %14点数最多3 10
+folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T20_upholstery';     %20容易出问题，基数属于中等 2 12
 % folder ='E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T15_brick2';          %15点数最少3 10
 filepaths = dir(fullfile(folder,'*.jpg'));
 num = length(filepaths);
@@ -25,7 +25,7 @@ for i = 1:length(filepaths)
     I = single(Iori);
     keypoint{2,i} = I;
     
-    [f, d] = vl_sift(I,'Levels',3,'PeakThresh', 10);
+    [f, d] = vl_sift(I,'Levels',2,'PeakThresh', 12);
     keypoint{3,i} = f;
     keypoint{4,i} = d;
     h = vl_plotframe(f);
