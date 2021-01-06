@@ -1,4 +1,6 @@
 clear all;close all;clc;
+run('E:\VLFeat\vlfeat-0.9.21\toolbox\vl_setup.m')
+vl_version verbose
 
 subplot(1,3,1);
 set(gcf,'color','white');
