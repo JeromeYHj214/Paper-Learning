@@ -8,19 +8,19 @@ t_start = cputime;  %计算时间
 %     X = [X;cell_T20_point_train{2,i}];
 % end
 
-load T15c_finalData.mat;
-X = [];
-len = size(cell_T15_point_train,2);
-for i = 1:len
-    X = [X;cell_T15_point_train{2,i}];
-end
-
-% load T14c_finalData.mat;
+% load T15c_finalData.mat;
 % X = [];
-% len = size(cell_T14_point_train,2);
+% len = size(cell_T15_point_train,2);
 % for i = 1:len
-%     X = [X;cell_T14_point_train{2,i}];
+%     X = [X;cell_T15_point_train{2,i}];
 % end
+
+load T14c_finalData.mat;
+X = [];
+len = size(cell_T14_point_train,2);
+for i = 1:len
+    X = [X;cell_T14_point_train{2,i}];
+end
 
 
 numComlim=10;
@@ -29,7 +29,7 @@ BIC = zeros(1,numComlim);
 GMModels = cell(1,numComlim);
 options = statset('Display','final','MaxIter',100,'TolFun',1e-5);
 for k = 1:numComlim
-    GMModels{k} = fitgmdist(X,k,'Options',options,'Replicates',10);
+    GMModels{k} = fitgmdist(X,k,'Options',options,'Replicates',30);
     AIC(k)= GMModels{k}.AIC;
     BIC(k)= GMModels{k}.BIC;
 end
@@ -59,5 +59,5 @@ xlabel('分布元个数');
 ylabel('优化准则值');
 
 % save('T20cmodel.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');
-save('T15cmodel.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');
-% save('T14cmodel.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');
+% save('T15cmodel.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');
+save('T14cmodel.mat','AIC','BIC','BestModelAIC','BestModelBIC','GMModels');

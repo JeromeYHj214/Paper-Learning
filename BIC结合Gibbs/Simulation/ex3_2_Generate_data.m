@@ -65,4 +65,4 @@ aa = min(X1_cad(1:100)):1:max(X1_cad(1:100));
 [bb ,cc] = hist(X1_cad(1:100),aa);
 bb = bb /100;
 bar(cc,bb,1);
-%save('ex3_X2.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt1_train','pt1_test','X1_cad');
+save('ex3_X2.mat','mu_X1','sigma_X1','alpha_X1','X1_cad_ori','X1_feat','X1','pt1_train','pt1_test','X1_cad');

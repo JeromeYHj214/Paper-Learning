@@ -1,9 +1,9 @@
 clc;clear;close;
 run('E:\VLFeat\vlfeat-0.9.21\toolbox\vl_setup.m')
 vl_version verbose
-% folder = 'F:\BaiduNetdiskDownload\彩色UCUI纹理数据集\UIUC14_brick1';         %14点数最多3 11
-% folder = 'F:\BaiduNetdiskDownload\彩色UCUI纹理数据集\UIUC20_upholstery';     %20容易出问题，基数属于中等 2 12
-folder ='F:\BaiduNetdiskDownload\彩色UCUI纹理数据集\UIUC15_brick2';          %15点数最少3 11
+folder = 'F:\BaiduNetdiskDownload\纹理数据集\UIUC14_brick1';         %14点数最多3 10
+% folder = 'F:\BaiduNetdiskDownload\纹理数据集\UIUC20_upholstery';     %20容易出问题，基数属于中等 2 10
+%  folder ='F:\BaiduNetdiskDownload\纹理数据集\UIUC15_brick22';          %15点数最少3 10
 filepaths = dir(fullfile(folder,'*.jpg'));
 num = length(filepaths);
 keypoint = cell(4,num);
@@ -42,6 +42,6 @@ for i = 1:length(filepaths)
     count = count + size(keypoint{3,i},2);
 end
 pois = count / length(filepaths)
-% save('T14c_brick1.mat','keypoint');
+save('T14c_brick1.mat','keypoint');
 % save('T20c_upholstery.mat','keypoint');
-save('T15c_brick2.mat','keypoint');
+% save('T15c_brick2.mat','keypoint');

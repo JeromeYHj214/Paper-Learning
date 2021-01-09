@@ -1,20 +1,20 @@
 close all;clear all;clc;
 
 %T14标记1；T15标记2；T20标记3；
-load T14cmodel.mat;
-gm1 = BestModelBIC; 
-load T15cmodel.mat;
-gm2 = BestModelBIC; 
-load T20cmodel.mat;
-gm3 = BestModelBIC;
-
-
-% load T14cmodel.mat; 
-% gm1 = GMModels{3}; 
+% load T14cmodel.mat;
+% gm1 = BestModelBIC; 
 % load T15cmodel.mat;
-% gm2 = GMModels{3}; 
+% gm2 = BestModelBIC; 
 % load T20cmodel.mat;
-% gm3 = GMModels{3}; 
+% gm3 = BestModelBIC;
+
+
+load T14cmodel.mat; 
+gm1 = GMModels{3}; 
+load T15cmodel.mat;
+gm2 = GMModels{3}; 
+load T20cmodel.mat;
+gm3 = GMModels{3}; 
 
 load T14c_finalData.mat;
 load T15c_finalData.mat;
@@ -55,12 +55,20 @@ for i = 1:len_all_data
     cell_all_data{4,i} = index;
     cell_all_data{5,i} = NB_index;
     
+%     if(cell_all_data{3,i} == cell_all_data{4,i})
+%        num_this = num_this + 1; 
+%     end
+%     
+%     if(cell_all_data{3,i} == cell_all_data{5,i})
+%        num_NB = num_NB + 1; 
+%     end
+
     if(cell_all_data{3,i} == cell_all_data{4,i})
-       num_this = num_this + 1; 
+       num_NB = num_NB + 1; 
     end
     
     if(cell_all_data{3,i} == cell_all_data{5,i})
-       num_NB = num_NB + 1; 
+       num_this = num_this + 1; 
     end
 end
 

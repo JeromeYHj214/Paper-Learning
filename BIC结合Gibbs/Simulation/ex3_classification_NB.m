@@ -5,13 +5,13 @@ close all;clear all;clc;
 all_pios = zeros(1,3);
 load ex3_X1_model.mat;
 all_pios(1) = pios;
-gm_x1 = GMModels{3};
+gm_x1 = GMModels{1};
 load ex3_X2_model.mat;
 all_pios(2) = pios;
-gm_x2 = GMModels{3};
+gm_x2 = GMModels{1};
 load ex3_X3_model.mat;
 all_pios(3) = pios;
-gm_x3 = GMModels{3};
+gm_x3 = GMModels{1};
 
 load ex3_X1;
 dataX1 = X1;
