@@ -26,7 +26,7 @@ b = single(T15_feat');
 T15_feat = double(b);
 [T15_coeff,T15_score,T15_latent,T15_tsquared,T15_explained] = pca(T15_feat);
 T15_explained
-T15_feat_pca = T15_score(:,1:2);
+T15_feat_pca = T15_score(:,2:3);
 save('T15.mat','T15','T15_card','T15_feat','T15_feat_pca');
 
 load T20_upholstery;

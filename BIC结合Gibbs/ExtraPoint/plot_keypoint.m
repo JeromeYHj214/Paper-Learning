@@ -11,7 +11,8 @@ I = single(I);
 [f, d] = vl_sift(I,'Levels',3,'PeakThresh', 10);
  h = vl_plotframe(f);
 set(h,'color','y','linewidth',2);
-xlabel('(a)T14 brick1','Fontsize',15);
+xlabel('T14 brick1','Fontsize',15);
+%title('£¨a£©','Fontsize',15,'position',[-15,20]);
 
 subplot(1,3,2);
 I = imread('T15.jpg') ;
@@ -21,7 +22,8 @@ I = single(I);
 [f, d] = vl_sift(I,'Levels',3,'PeakThresh', 9);
  h = vl_plotframe(f);
 set(h,'color','y','linewidth',2);
-xlabel('(b)T15 brick2','Fontsize',15);
+xlabel('T15 brick2','Fontsize',15);
+%title('£¨b£©','Fontsize',15,'position',[-15,20]);
 
 subplot(1,3,3);
 I = imread('T20.jpg') ;
@@ -31,4 +33,5 @@ I = single(I);
 [f, d] = vl_sift(I,'Levels',2,'PeakThresh', 10);
  h = vl_plotframe(f);
 set(h,'color','y','linewidth',2);
-xlabel('(c)T20 upholstery','Fontsize',15);
+xlabel('T20 upholstery','Fontsize',15);
+%title('£¨c£©','Fontsize',15,'position',[-15,20]);

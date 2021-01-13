@@ -1,9 +1,9 @@
 clc;clear;close;
 run('E:\VLFeat\vlfeat-0.9.21\toolbox\vl_setup.m')
 vl_version verbose
-% folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T14_brick1';         %14点数最多3 10
-folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T20_upholstery';     %20容易出问题，基数属于中等 2 12
-% folder ='E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T15_brick2';          %15点数最少3 10
+  folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T14_brick1';         %14点数最多3 10
+ % folder = 'E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T20_upholstery';     %20容易出问题，基数属于中等 3 8
+ %folder ='E:\BaiduNetdiskDownload\uiuc-texture-gray-256x256-CASIAV3names\T15_brick2';          %15点数最少3 10
 filepaths = dir(fullfile(folder,'*.jpg'));
 num = length(filepaths);
 keypoint = cell(4,num);
@@ -25,7 +25,7 @@ for i = 1:length(filepaths)
     I = single(Iori);
     keypoint{2,i} = I;
     
-    [f, d] = vl_sift(I,'Levels',2,'PeakThresh', 12);
+    [f, d] = vl_sift(I,'Levels',3,'PeakThresh', 10);
     keypoint{3,i} = f;
     keypoint{4,i} = d;
     h = vl_plotframe(f);
@@ -42,6 +42,6 @@ for i = 1:length(filepaths)
     count = count + size(keypoint{3,i},2);
 end
 pois = count / length(filepaths)
-% save('T14_brick1.mat','keypoint');
-save('T20_upholstery.mat','keypoint');
-% save('T15_brick2.mat','keypoint');
+ save('T14_brick1.mat','keypoint');
+% save('T20_upholstery.mat','keypoint');
+%save('T15_brick2.mat','keypoint');

@@ -4,7 +4,7 @@ figure;
 set(gcf,'color','white');
 subplot(1,3,2);
 load T14model.mat;
-gm1 = GMModels{6};
+gm1 = BestModelBIC;
 [x1,x2] = meshgrid(-400:1:400,-300:1:250);
 contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),16,'-r');
 ylabel('Y','FontSize',15);
@@ -12,12 +12,12 @@ xlabel({'X';'(b)模型特征分布'},'FontSize',15);
 hold on;
 
 load T15model.mat;
-gm2 = GMModels{6};
+gm2 = BestModelBIC;
 contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),16,'-.b');
 hold on;
 
 load T20model.mat;
-gm3 =  GMModels{5};
+gm3 = BestModelBIC ;
 contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),16,'--g');
 hold on;
 l1 = legend('T14','T15','T20');
