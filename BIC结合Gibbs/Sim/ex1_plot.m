@@ -14,7 +14,7 @@ x3_card = X1_cad;
 x3_feat = [pt1_train pt1_test];
 
 %% Ãè»æÌØÕ÷·Ö²¼
-aa = 600;
+aa = 1000;
 figure;
 subplot(1,2,2);
 set(gcf,'color','white');
@@ -57,9 +57,9 @@ color = ['r','b','g'];
 % set(b(1),'FaceColor','none','EdgeColor','r','LineStyle','-');
 % set(b(2),'FaceColor','none','EdgeColor','b','LineStyle','-.');
 % set(b(3),'FaceColor','none','EdgeColor','g','LineStyle','--');
-set(b(1),'FaceColor','r');
-set(b(2),'FaceColor','b');
-set(b(3),'FaceColor','g');
+set(b(1),'FaceColor','r','EdgeColor','none');
+set(b(2),'FaceColor','b','EdgeColor','none');
+set(b(3),'FaceColor','g','EdgeColor','none');
 l1 = legend('Class 1','Class 2','Class 3');
 set(l1,'FontSize',15)
 ylabel('Frequency','FontSize',15);

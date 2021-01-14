@@ -96,7 +96,7 @@ set(gcf,'color','white');
 load ex3_X1_model.mat;
 gm1 = GMModels{aa};
 [x1,x2] = meshgrid(0:0.01:14,2:0.01:20);
-contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'-r');
+contour(x1,x2,reshape(pdf(gm1,[x1(:) x2(:)]),size(x1,1),size(x1,2)),7,'-r','LineWidth',1.5);
 ylabel('Y','FontSize',15);
 xlabel({'X';'(b)模型特征分布'},'FontSize',15);
 hold on;
@@ -104,13 +104,13 @@ hold on;
 load ex3_X2_model.mat;
 gm2 = GMModels{bb};
 %contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'-.b');
-contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'-b');
+contour(x1,x2,reshape(pdf(gm2,[x1(:) x2(:)]),size(x1,1),size(x1,2)),7,'-b','LineWidth',1.5);
 hold on;
 
 load ex3_X3_model.mat;
 gm3 = GMModels{cc};
 %contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'--g');
-contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),8,'-g');
+contour(x1,x2,reshape(pdf(gm3,[x1(:) x2(:)]),size(x1,1),size(x1,2)),7,'-g','LineWidth',1.5);
 hold on;
 l1 = legend('Class 1','Class 2','Class 3');
 set(l1,'FontSize',15)
@@ -143,11 +143,11 @@ counts3=counts3/num;
 % hold on;
 % bar(binloca3,counts3,1,'FaceColor','none','EdgeColor','g','LineStyle','--');
 
-bar(binloca1,counts1,1,'FaceColor','r');
+bar(binloca1,counts1,1,'FaceColor','r','EdgeColor','none');
 hold on;
-bar(binloca2,counts2,1,'FaceColor','b');
+bar(binloca2,counts2,1,'FaceColor','b','EdgeColor','none');
 hold on;
-bar(binloca3,counts3,1,'FaceColor','g');
+bar(binloca3,counts3,1,'FaceColor','g','EdgeColor','none');
 
 % l1 = legend('类一','类二','类三')
 % set(l1,'FontSize',15);
